@@ -2,18 +2,20 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const isProd = import.meta.env.PROD;
 
+const apiRequestOptions = {
+  method: "GET",
+  headers: {
+    "X-Api-Key": API_KEY,
+    "User-Agent": "MyApp/1.0",
+    Accept: "application/json",
+  },
+};
+
 export const fetchCountries = async () => {
   try {
     const response = await fetch(
       isProd ? `${BASE_URL}/countries/` : `/api/countries/`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": API_KEY,
-          "User-Agent": "MyApp/1.0",
-          Accept: "application/json",
-        },
-      }
+      apiRequestOptions
     );
 
     if (!response.ok) {
@@ -72,17 +74,20 @@ export const fetchDataFromApi = async (request) => {
 
   let url;
   if (period === "current") {
-    url = isProd
+    ((url = isProd
       ? `${BASE_URL}/current-emissions/${country}/`
-      : `/api/current-emissions/${country}/`;
+      : `/api/current-emissions/${country}/`),
+      apiRequestOptions);
   } else if (period === "24h") {
-    url = isProd
+    ((url = isProd
       ? `${BASE_URL}/emissions-previous-24h/${country}/`
-      : `/api/emissions-previous-24h/${country}/`;
+      : `/api/emissions-previous-24h/${country}/`),
+      apiRequestOptions);
   } else if (period === "year" && year) {
-    url = isProd
+    ((url = isProd
       ? `${BASE_URL}/archive/${country}/${year}/`
-      : `/api/archive/${country}/${year}/`;
+      : `/api/archive/${country}/${year}/`),
+      apiRequestOptions);
   } else {
     throw new Error("Periodo o parametri non validi");
   }

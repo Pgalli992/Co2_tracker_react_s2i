@@ -13,7 +13,6 @@ const useApiRequest = () => {
     setError(null);
 
     try {
-      // Controlla se i dati sono già nella cronologia
       const cachedData = getFromSearchHistory(request);
       if (cachedData) {
         console.log("Dati recuperati dalla cronologia:", cachedData);
@@ -22,14 +21,14 @@ const useApiRequest = () => {
         return cachedData;
       }
 
-      // Effettua la chiamata API se i dati non sono nella cronologia
       const response = await fetchDataFromApi(request);
 
-      // Aggiungi i nuovi dati alla cronologia
+      console.log("API Response:", response);
+
       addToSearchHistory(request, response);
 
-      // Aggiorna lo stato con i nuovi dati
       setData(response);
+      console.log("Dati recuperati dall'API:", response);
       setLoading(false);
       return response;
     } catch (err) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CountrySelector from "./atoms/CountrySelector";
 import PeriodSelector from "./atoms/PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
@@ -8,20 +8,24 @@ function DataSettingComponent({ className }) {
   const [selectedPeriod, setSelectedPeriod] = useState("current");
   const { data, loading, error, handleRequest } = useApiRequest();
 
-  const handleSearch = async () => {
-    if (!selectedCountry || !selectedPeriod) return;
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedCountry || !selectedPeriod) return;
 
-    const request = {
-      country: selectedCountry,
-      period: selectedPeriod,
+      const request = {
+        country: selectedCountry,
+        period: selectedPeriod,
+      };
+
+      try {
+        await handleRequest(request);
+      } catch (err) {
+        console.error("Errore durante la ricerca:", err);
+      }
     };
 
-    try {
-      await handleRequest(request);
-    } catch (err) {
-      console.error("Errore durante la ricerca:", err);
-    }
-  };
+    fetchData();
+  }, [selectedCountry, selectedPeriod, handleRequest]);
 
   return (
     <div className={`${className}`}>
@@ -33,9 +37,7 @@ function DataSettingComponent({ className }) {
         selectedPeriod={selectedPeriod}
         setSelectedPeriod={setSelectedPeriod}
       />
-      <button onClick={handleSearch} disabled={loading}>
-        {loading ? "Loading..." : "Search"}
-      </button>
+      {loading && <div>Caricamento...</div>}
       {error && <div className="error">Errore: {error.message}</div>}
       {data && <div className="data">Risultato: {JSON.stringify(data)}</div>}
     </div>
