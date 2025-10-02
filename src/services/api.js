@@ -34,36 +34,73 @@ export const fetchCountries = async () => {
   }
 };
 
-export const fetchCCurrentEmissions = async ({ country }) => {
+const parseApiResponse = (response, period) => {
+  if (response.errors) {
+    return {
+      error: true,
+      message: response.errors.detail || "Errore sconosciuto",
+    };
+  }
+
+  switch (period) {
+    case "current":
+      return {
+        country: response.country,
+        emissions: [response.emissions],
+      };
+
+    case "24h":
+      return {
+        country: response.country,
+        emissions: response.emissions,
+      };
+
+    case "year":
+      return {
+        country: response.country,
+        year: response.year,
+        months: response.months,
+      };
+
+    default:
+      throw new Error("Tipo di periodo non supportato");
+  }
+};
+
+export const fetchDataFromApi = async (request) => {
+  const { country, period = "", year = "" } = request;
+
+  let url;
+  if (period === "current") {
+    url = isProd
+      ? `${BASE_URL}/current-emissions/${country}/`
+      : `/api/current-emissions/${country}/`;
+  } else if (period === "24h") {
+    url = isProd
+      ? `${BASE_URL}/emissions-previous-24h/${country}/`
+      : `/api/emissions-previous-24h/${country}/`;
+  } else if (period === "year" && year) {
+    url = isProd
+      ? `${BASE_URL}/archive/${country}/${year}/`
+      : `/api/archive/${country}/${year}/`;
+  } else {
+    throw new Error("Periodo o parametri non validi");
+  }
+
   try {
-    const response = await fetch(
-      isProd
-        ? `${BASE_URL}/current-emissions/${country}/`
-        : `/api/current-emissions/${country}/`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": API_KEY,
-          "User-Agent": "MyApp/1.0",
-          Accept: "application/json",
-        },
-      }
-    );
+    const response = await fetch(url);
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Server response:", errorText);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Errore nella chiamata API: ${response.status}`);
     }
 
     const data = await response.json();
-    return data;
-  } catch (err) {
-    console.error("Error fetching current emissions:", {
-      message: err.message,
-      status: err.status,
-      stack: err.stack,
-    });
-    throw err;
+
+    return parseApiResponse(data, period);
+  } catch (error) {
+    console.error("Errore durante la chiamata API:", error);
+    throw error;
   }
 };
+
+export default fetchDataFromApi;

@@ -1,12 +1,14 @@
-import CountrySelector from "./CountrySelector";
-import Header from "./Header";
+import DataSettingComponent from "./DataSettingComponent";
+import MainContent from "./MainContent";
+import Sidebar from "./Sidebar";
 
 function AppLayout() {
   return (
-    <div className="h-screen overflow-hidden caret-transparent bg-light flex items-center justify-center">
-      <Header>
-        <CountrySelector />
-      </Header>
+    <div className="bg-light mx-auto flex h-screen w-[90%] items-center gap-4 overflow-hidden caret-transparent">
+      <Sidebar />
+      <MainContent className="flex h-full flex-col overflow-y-auto py-4">
+        <DataSettingComponent className="flex-1" />
+      </MainContent>
     </div>
   );
 }

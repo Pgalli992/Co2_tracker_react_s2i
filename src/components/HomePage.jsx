@@ -1,5 +1,11 @@
+import AppLayout from "./AppLayout";
+
 function HomePage() {
-  return <div></div>;
+  return (
+    <div>
+      <AppLayout />
+    </div>
+  );
 }
 
 export default HomePage;
