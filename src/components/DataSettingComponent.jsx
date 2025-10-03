@@ -25,7 +25,7 @@ function DataSettingComponent({ className }) {
     };
 
     fetchData();
-  }, [selectedCountry, selectedPeriod, handleRequest]);
+  }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
 
   return (
     <div className={`${className}`}>

@@ -11,10 +11,14 @@ export const AppProvider = ({ children }) => {
   };
 
   const getFromSearchHistory = (request) => {
+    console.log("searchHistory:", searchHistory, "request:", request);
     return (
-      searchHistory.find(
-        (entry) => JSON.stringify(entry.request) === JSON.stringify(request)
-      ) || null
+      searchHistory.find((entry) => {
+        const isEqual =
+          JSON.stringify(entry.request) === JSON.stringify(request);
+        console.log("Comparing:", entry.request, request);
+        return isEqual;
+      }) || null
     );
   };
 
@@ -33,6 +37,7 @@ export const AppProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {

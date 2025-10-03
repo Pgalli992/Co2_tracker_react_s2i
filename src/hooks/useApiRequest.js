@@ -15,20 +15,21 @@ const useApiRequest = () => {
     try {
       const cachedData = getFromSearchHistory(request);
       if (cachedData) {
-        console.log("Dati recuperati dalla cronologia:", cachedData);
+        console.log("1: Dati recuperati dalla cronologia:", cachedData);
         setData(cachedData);
         setLoading(false);
         return cachedData;
       }
 
       const response = await fetchDataFromApi(request);
+      console.log("Request:", request);
 
       console.log("API Response:", response);
 
       addToSearchHistory(request, response);
 
       setData(response);
-      console.log("Dati recuperati dall'API:", response);
+      console.log("2: Dati recuperati dall'API:", response);
       setLoading(false);
       return response;
     } catch (err) {
