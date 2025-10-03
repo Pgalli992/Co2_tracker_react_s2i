@@ -74,19 +74,22 @@ export const fetchDataFromApi = async (request) => {
 
   let url;
   if (period === "current") {
-    ((url = isProd
+    (((url = isProd
       ? `${BASE_URL}/current-emissions/${country}/`
       : `/api/current-emissions/${country}/`),
+    apiRequestOptions),
       apiRequestOptions);
   } else if (period === "24h") {
-    ((url = isProd
+    (((url = isProd
       ? `${BASE_URL}/emissions-previous-24h/${country}/`
       : `/api/emissions-previous-24h/${country}/`),
+    apiRequestOptions),
       apiRequestOptions);
   } else if (period === "year" && year) {
-    ((url = isProd
+    (((url = isProd
       ? `${BASE_URL}/archive/${country}/${year}/`
       : `/api/archive/${country}/${year}/`),
+    apiRequestOptions),
       apiRequestOptions);
   } else {
     throw new Error("Periodo o parametri non validi");
