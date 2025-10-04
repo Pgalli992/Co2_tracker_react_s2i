@@ -5,6 +5,7 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
+  const [year, setYear] = useState(new Date().getFullYear());
 
   const addToSearchHistory = (request, response) => {
     setSearchHistory((prev) => [...prev, { request, response }]);
@@ -27,6 +28,8 @@ export const AppProvider = ({ children }) => {
       value={{
         countries,
         setCountries,
+        year,
+        setYear,
         searchHistory,
         addToSearchHistory,
         getFromSearchHistory,

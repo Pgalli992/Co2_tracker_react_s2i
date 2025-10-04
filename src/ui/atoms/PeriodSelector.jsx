@@ -1,7 +1,12 @@
-import { useState } from "react";
 import InputRadioGroup from "./InputRadioGroup";
+import InputYear from "./InputYear";
 
-function PeriodSelector({ selectedPeriod, setSelectedPeriod }) {
+function PeriodSelector({
+  selectedPeriod,
+  setSelectedPeriod,
+  selectedYear,
+  setSelectedYear,
+}) {
   return (
     <div>
       <InputRadioGroup
@@ -13,6 +18,12 @@ function PeriodSelector({ selectedPeriod, setSelectedPeriod }) {
         selectedValue={selectedPeriod}
         onChange={setSelectedPeriod}
       />
+      {selectedPeriod === "year" && (
+        <InputYear
+          year={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
+        />
+      )}
     </div>
   );
 }

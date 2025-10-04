@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "./App.css";
-import HomePage from "./components/HomePage";
+import HomePage from "./ui/HomePage";
 
 function App() {
   return (
