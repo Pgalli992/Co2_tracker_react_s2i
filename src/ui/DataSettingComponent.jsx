@@ -21,18 +21,27 @@ import {
   ScaleLoader,
   SyncLoader,
 } from "react-spinners";
-import LiquidGlassContainer from "./atoms/LiquidGlassContainer";
+import { useAppContext } from "../contexts/AppContext";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState("current");
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const { data, loading, error, handleRequest } = useApiRequest();
+  const { setRequest } = useAppContext();
+  const { loading, error, handleRequest } = useApiRequest();
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!selectedCountry || !selectedPeriod) return;
+    if (!selectedCountry || !selectedPeriod) return;
 
+    const req = {
+      country: selectedCountry,
+      period: selectedPeriod,
+      year: selectedPeriod === "year" ? selectedYear : undefined,
+    };
+
+    setRequest(req);
+
+    const fetchData = async () => {
       const request = {
         country: selectedCountry,
         period: selectedPeriod,
@@ -50,7 +59,7 @@ function DataSettingComponent({ className }) {
   }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
 
   return (
-    <div className={`relative rounded-[30px] ${className} `}>
+    <div className={`relative rounded-[30px] ${className} p-4`}>
       <CountrySelector
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
@@ -67,9 +76,6 @@ function DataSettingComponent({ className }) {
         </div>
       )}
       {error && <MessageContainer message={`Errore: ${error.message}`} />}
-      {data && (
-        <MessageContainer message={`Risultato: ${JSON.stringify(data)}`} />
-      )}
     </div>
   );
 }

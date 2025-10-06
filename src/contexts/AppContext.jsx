@@ -6,6 +6,8 @@ export const AppProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
   const [year, setYear] = useState(new Date().getFullYear());
+  const [data, setData] = useState(null);
+  const [request, setRequest] = useState(null);
 
   const addToSearchHistory = (request, response) => {
     setSearchHistory((prev) => [...prev, { request, response }]);
@@ -29,7 +31,11 @@ export const AppProvider = ({ children }) => {
         countries,
         setCountries,
         year,
+        data,
+        setData,
         setYear,
+        request,
+        setRequest,
         searchHistory,
         addToSearchHistory,
         getFromSearchHistory,

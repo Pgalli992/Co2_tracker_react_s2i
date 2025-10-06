@@ -4,9 +4,9 @@ import { useAppContext } from "../contexts/AppContext";
 
 const useApiRequest = () => {
   const { addToSearchHistory, getFromSearchHistory } = useAppContext();
-  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { data, setData } = useAppContext();
 
   const handleRequest = async (request) => {
     setLoading(true);
@@ -15,25 +15,19 @@ const useApiRequest = () => {
     try {
       const cachedData = getFromSearchHistory(request);
       if (cachedData) {
-        console.log("1: Dati recuperati dalla cronologia:", cachedData);
         setData(cachedData);
         setLoading(false);
         return cachedData;
       }
 
       const response = await fetchDataFromApi(request);
-      console.log("Request:", request);
-
-      console.log("API Response:", response);
 
       addToSearchHistory(request, response);
 
       setData(response);
-      console.log("2: Dati recuperati dall'API:", response);
       setLoading(false);
       return response;
     } catch (err) {
-      console.error("Errore durante la richiesta:", err);
       setError(err);
       setLoading(false);
       throw err;

@@ -37,6 +37,7 @@ export const fetchCountries = async () => {
 };
 
 const parseApiResponse = (response, period) => {
+  console.log("API raw response:", response);
   if (response.errors) {
     return {
       error: true,
