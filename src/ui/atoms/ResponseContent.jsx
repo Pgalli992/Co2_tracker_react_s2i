@@ -5,7 +5,7 @@ function ResponseContent({ data }) {
   const responseData = data.response ? data.response : data;
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center justify-center">
       <div className="">{responseData.country.name}</div>
       <div className="flex flex-col items-center justify-center">
         <CloudSnow />
@@ -15,9 +15,9 @@ function ResponseContent({ data }) {
         </span>
       </div>
       {data.response ? (
-        <HardDrive className="absolute top-0 right-1/2" color="#0fda1c" />
+        <HardDrive className="absolute top-0 right-1/4" color="#0fda1c" />
       ) : (
-        <Earth className="absolute top-0 right-1/2" color="#e9c916" />
+        <Earth className="absolute top-0 right-1/4" color="#e9c916" />
       )}
     </div>
   );

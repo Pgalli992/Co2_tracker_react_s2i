@@ -3,11 +3,13 @@ import useApiRequest from "../hooks/useApiRequest";
 import ResponseContent from "./atoms/ResponseContent";
 
 function DataResponseComponent() {
-  const { data, searchHistory } = useApiRequest();
+  const { data } = useApiRequest();
 
-  // const co2Data = (request) ? searchHistory ;
-
-  return <div>{data && <ResponseContent data={data} />}</div>;
+  return (
+    <div className="relative flex w-full items-center justify-center">
+      {data && <ResponseContent data={data} />}
+    </div>
+  );
 }
 
 export default DataResponseComponent;

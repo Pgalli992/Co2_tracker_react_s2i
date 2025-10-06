@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchCountries } from "../../services/api";
 import { useAppContext } from "../../contexts/AppContext";
-import LiquidGlassContainer from "./LiquidGlassContainer";
 import InputSelect from "./InputSelect";
 
-function CountrySelector({ setSelectedCountry }) {
+function CountrySelector({
+  selectedCountry,
+  setSelectedCountry,
+  countryModeSelection,
+}) {
   const { countries, setCountries } = useAppContext();
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
@@ -22,14 +25,18 @@ function CountrySelector({ setSelectedCountry }) {
   }, [setCountries]);
 
   return (
-    <div>
+    <div
+      className={`h-min w-auto rounded-lg border-[.5px] px-2 py-1 ${countryModeSelection !== "country" ? "cursor-not-allowed opacity-50" : ""}`}
+    >
       <InputSelect
-        label="Select your country:"
+        label="Country:"
         options={countries.map((country) => ({
           value: country.id,
           label: country.name,
         }))}
+        value={selectedCountry || ""}
         onChange={(value) => setSelectedCountry(value)}
+        disabled={countryModeSelection !== "country"}
       />
     </div>
   );

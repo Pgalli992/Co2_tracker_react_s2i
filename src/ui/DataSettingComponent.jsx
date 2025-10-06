@@ -3,25 +3,10 @@ import CountrySelector from "./atoms/CountrySelector";
 import PeriodSelector from "./atoms/PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
 import MessageContainer from "./atoms/MessageContainter";
-import {
-  BarLoader,
-  BeatLoader,
-  CircleLoader,
-  ClimbingBoxLoader,
-  ClipLoader,
-  FadeLoader,
-  GridLoader,
-  HashLoader,
-  PropagateLoader,
-  PuffLoader,
-  PulseLoader,
-  RingLoader,
-  RiseLoader,
-  RotateLoader,
-  ScaleLoader,
-  SyncLoader,
-} from "react-spinners";
+import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
+import InputText from "./atoms/InputText";
+import InputRadio from "./atoms/InputRadio";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -29,6 +14,8 @@ function DataSettingComponent({ className }) {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const { setRequest } = useAppContext();
   const { loading, error, handleRequest } = useApiRequest();
+
+  const [countryModeSelection, setCountryModeSelection] = useState("country");
 
   useEffect(() => {
     if (!selectedCountry || !selectedPeriod) return;
@@ -59,11 +46,42 @@ function DataSettingComponent({ className }) {
   }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
 
   return (
-    <div className={`relative rounded-[30px] ${className} p-4`}>
-      <CountrySelector
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
-      />
+    <div className={`relative flex justify-around rounded-[30px] ${className}`}>
+      <InputRadio
+        value="country"
+        onChange={() => {
+          setCountryModeSelection("country");
+          setSelectedCountry("");
+        }}
+        checked={countryModeSelection === "country"}
+      >
+        <CountrySelector
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          countryModeSelection={countryModeSelection}
+        />
+      </InputRadio>
+      <InputRadio
+        value="coordinates"
+        onChange={() => {
+          setCountryModeSelection("coordinates");
+          setSelectedCountry("");
+        }}
+        checked={countryModeSelection === "coordinates"}
+      >
+        <div
+          className={`flex flex-col gap-4 ${countryModeSelection !== "coordinates" ? "cursor-not-allowed opacity-50" : ""}`}
+        >
+          <InputText
+            label={"Latitude"}
+            disabled={countryModeSelection !== "coordinates"}
+          />
+          <InputText
+            label={"Longitude"}
+            disabled={countryModeSelection !== "coordinates"}
+          />
+        </div>
+      </InputRadio>
       <PeriodSelector
         selectedPeriod={selectedPeriod}
         setSelectedPeriod={setSelectedPeriod}

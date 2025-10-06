@@ -9,6 +9,9 @@ function PeriodSelector({
 }) {
   return (
     <div>
+      <div className="ml-2 w-min translate-y-3 transform bg-white px-1">
+        Period:
+      </div>
       <InputRadioGroup
         options={[
           { value: "current", label: "Now" },
@@ -17,6 +20,7 @@ function PeriodSelector({
         ]}
         selectedValue={selectedPeriod}
         onChange={setSelectedPeriod}
+        className="px-2.5 pt-4 pb-1"
       />
       {selectedPeriod === "year" && (
         <InputYear

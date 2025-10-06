@@ -1,14 +1,25 @@
-function InputSelect({ label, onChange, className, options = [] }) {
+function InputSelect({
+  label,
+  onChange,
+  disabled,
+  className,
+  options = [],
+  value,
+}) {
   return (
-    <div>
-      <label htmlFor={label}>{label}</label>
+    <div className="flex flex-col">
+      <label htmlFor={label} className="w-min -translate-y-4 bg-white px-1">
+        {label}
+      </label>
       <select
         id={label}
         name={label}
+        value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`before:shadow-liquidglass relative z-0 cursor-pointer bg-transparent before:absolute before:inset-0 before:bg-[rgba(255,255,255,0.1)] before:content-[""] after:absolute after:inset-0 after:isolate after:z-[-1] after:overflow-hidden after:[filter:url(#container-glass)] after:backdrop-blur-[0px] after:content-[""] ${className}`}
+        className={`-translate-y-1/2 cursor-pointer bg-transparent text-sm focus-within:outline-none ${className}`}
+        disabled={disabled}
       >
-        <option value="Choose an option">Choose an option</option>
+        <option value="">Choose an option</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
