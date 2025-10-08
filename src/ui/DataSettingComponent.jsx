@@ -7,6 +7,13 @@ import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
 import InputText from "./atoms/InputText";
 import InputRadio from "./atoms/InputRadio";
+import Separator from "./atoms/Separator";
+import {
+  CalendarSearch,
+  CalendarSearchIcon,
+  Map,
+  Settings2,
+} from "lucide-react";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -46,55 +53,83 @@ function DataSettingComponent({ className }) {
   }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
 
   return (
-    <div className={`relative flex justify-around rounded-[30px] ${className}`}>
-      <InputRadio
-        value="country"
-        onChange={() => {
-          setCountryModeSelection("country");
-          setSelectedCountry("");
-        }}
-        checked={countryModeSelection === "country"}
+    <>
+      <div className="flex items-center justify-center gap-2">
+        <Settings2 />
+        <h1 className="text-center text-xl font-bold">Explore Emission Data</h1>
+      </div>
+      <div className="mt-5 flex w-full translate-y-5 transform justify-around">
+        <Map />
+        <CalendarSearchIcon />
+      </div>
+      <div
+        className={`relative flex w-full justify-between gap-3 ${className}`}
       >
-        <CountrySelector
-          selectedCountry={selectedCountry}
-          setSelectedCountry={setSelectedCountry}
-          countryModeSelection={countryModeSelection}
-        />
-      </InputRadio>
-      <InputRadio
-        value="coordinates"
-        onChange={() => {
-          setCountryModeSelection("coordinates");
-          setSelectedCountry("");
-        }}
-        checked={countryModeSelection === "coordinates"}
-      >
-        <div
-          className={`flex flex-col gap-4 ${countryModeSelection !== "coordinates" ? "cursor-not-allowed opacity-50" : ""}`}
-        >
-          <InputText
-            label={"Latitude"}
-            disabled={countryModeSelection !== "coordinates"}
-          />
-          <InputText
-            label={"Longitude"}
-            disabled={countryModeSelection !== "coordinates"}
-          />
+        <div className="mt-6 flex flex-1 flex-col items-center justify-center gap-6">
+          <div className="flex flex-col gap-2">
+            <InputRadio
+              value="country"
+              onChange={() => {
+                setCountryModeSelection("country");
+                setSelectedCountry("");
+              }}
+              checked={countryModeSelection === "country"}
+              className={"text-sm"}
+            >
+              Select Country
+            </InputRadio>
+            <InputRadio
+              value="coordinates"
+              onChange={() => {
+                setCountryModeSelection("coordinates");
+                setSelectedCountry("");
+              }}
+              checked={countryModeSelection === "coordinates"}
+              className={"text-sm"}
+            >
+              Use Coordinates
+            </InputRadio>
+          </div>
+          <div className="flex h-36 w-[70%] items-start justify-center">
+            {countryModeSelection === "country" ? (
+              <CountrySelector
+                selectedCountry={selectedCountry}
+                setSelectedCountry={setSelectedCountry}
+                countryModeSelection={countryModeSelection}
+              />
+            ) : (
+              <div
+                className={`flex w-full flex-col gap-4 ${countryModeSelection !== "coordinates" ? "cursor-not-allowed opacity-50" : ""}`}
+              >
+                <InputText
+                  label={"Latitude"}
+                  disabled={countryModeSelection !== "coordinates"}
+                />
+                <InputText
+                  label={"Longitude"}
+                  disabled={countryModeSelection !== "coordinates"}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </InputRadio>
-      <PeriodSelector
-        selectedPeriod={selectedPeriod}
-        setSelectedPeriod={setSelectedPeriod}
-        selectedYear={selectedYear}
-        setSelectedYear={setSelectedYear}
-      />
-      {loading && (
-        <div className="bg-aero-100/20 filter-blur-lg fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center">
-          <RingLoader loading={loading} size={150} />
+        <Separator />
+        <div className="relative mt-16 flex flex-1 items-start justify-center">
+          <PeriodSelector
+            selectedPeriod={selectedPeriod}
+            setSelectedPeriod={setSelectedPeriod}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          />
+          {loading && (
+            <div className="bg-aero-100/20 filter-blur-lg fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center">
+              <RingLoader loading={loading} size={150} />
+            </div>
+          )}
+          {error && <MessageContainer message={`Errore: ${error.message}`} />}
         </div>
-      )}
-      {error && <MessageContainer message={`Errore: ${error.message}`} />}
-    </div>
+      </div>
+    </>
   );
 }
 

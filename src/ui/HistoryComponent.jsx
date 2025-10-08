@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAppContext } from "../contexts/AppContext";
+import { History } from "lucide-react";
 
 function HistoryComponent({ className }) {
   const { searchHistory } = useAppContext();
@@ -9,8 +10,11 @@ function HistoryComponent({ className }) {
   }, [searchHistory]);
 
   return (
-    <div className={`p-4 ${className}`}>
-      <h2 className="mb-2 font-bold">Ultime ricerche</h2>
+    <div className={`mt-10 p-4 ${className}`}>
+      <div className="flex items-center justify-center gap-2">
+        <History />
+        <h2 className="text-center font-bold">Ultime ricerche</h2>
+      </div>
       <ul className="space-y-1">
         {searchHistory.map((item) => (
           <li

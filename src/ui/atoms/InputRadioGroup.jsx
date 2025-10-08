@@ -10,7 +10,7 @@ const InputRadioGroup = ({
   }
   return (
     <div
-      className={`radio-group flex flex-col gap-2 rounded-lg border-[.5px] ${className}`}
+      className={`radio-group flex flex-col justify-center gap-2 ${className}`}
     >
       {options.map((option) => (
         <label key={option.value}>
@@ -20,6 +20,7 @@ const InputRadioGroup = ({
             value={option.value}
             checked={selectedValue === option.value}
             onChange={() => onChange(option.value)}
+            className="mr-1"
           />
           {option.label}
         </label>

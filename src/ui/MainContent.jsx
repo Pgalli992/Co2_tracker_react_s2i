@@ -3,9 +3,10 @@ import DataSettingComponent from "./DataSettingComponent";
 
 function MainContent({ className }) {
   return (
-    <div className={`flex flex-col gap-20 rounded-[30px] p-4 ${className}`}>
-      <DataSettingComponent className="flex-1 shadow-md" />
-      <DataResponseComponent className="flex-2 shadow-md" />
+    <div
+      className={`flex flex-col gap-20 rounded-lg p-4 px-2 py-12 shadow-sm${className}`}
+    >
+      <DataResponseComponent className="w-1/3" />
     </div>
   );
 }

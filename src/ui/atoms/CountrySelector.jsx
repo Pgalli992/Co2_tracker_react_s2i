@@ -26,7 +26,7 @@ function CountrySelector({
 
   return (
     <div
-      className={`h-min w-auto rounded-lg border-[.5px] px-2 py-1 ${countryModeSelection !== "country" ? "cursor-not-allowed opacity-50" : ""}`}
+      className={`h-min w-full rounded-lg border-[.5px] px-2 py-1 ${countryModeSelection !== "country" ? "scale-75 transform cursor-not-allowed opacity-50" : ""}`}
     >
       <InputSelect
         label="Country:"
