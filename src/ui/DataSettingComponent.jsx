@@ -113,7 +113,7 @@ function DataSettingComponent({ className }) {
             )}
           </div>
         </div>
-        <Separator />
+        <Separator className="-translate-y-5" />
         <div className="relative mt-16 flex flex-1 items-start justify-center">
           <PeriodSelector
             selectedPeriod={selectedPeriod}

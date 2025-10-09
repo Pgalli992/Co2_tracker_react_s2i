@@ -69,6 +69,21 @@ const parseApiResponse = (response, period) => {
       throw new Error("Tipo di periodo non supportato");
   }
 };
+export const fetchFlagFromApi = async (countryId) => {
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${countryId}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching flag:", error);
+    throw error;
+  }
+};
 
 export const fetchDataFromApi = async (request) => {
   const { country, period = "", year = "" } = request;

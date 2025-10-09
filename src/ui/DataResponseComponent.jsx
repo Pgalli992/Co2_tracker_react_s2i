@@ -4,6 +4,7 @@ import ResponseContent from "./atoms/ResponseContent";
 
 function DataResponseComponent() {
   const { data } = useApiRequest();
+  console.log("Data in DataResponseComponent:", data);
 
   return (
     <div className="relative flex w-full items-center justify-center">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import fetchDataFromApi from "../services/api";
+import fetchDataFromApi, { fetchFlagFromApi } from "../services/api";
 import { useAppContext } from "../contexts/AppContext";
 
 const useApiRequest = () => {
@@ -20,13 +20,29 @@ const useApiRequest = () => {
         return cachedData;
       }
 
-      const response = await fetchDataFromApi(request);
+      const [dataResult, flagResult] = await Promise.allSettled([
+        fetchDataFromApi(request),
+        fetchFlagFromApi(request.country),
+      ]);
 
-      addToSearchHistory(request, response);
+      const successfullResults = {
+        data: dataResult.status === "fulfilled" ? dataResult.value : [],
+        flag: flagResult.status === "fulfilled" ? flagResult.value : [],
+      };
 
-      setData(response);
+      if (
+        successfullResults.data.length === 0 ||
+        successfullResults.flag.length === 0
+      ) {
+        console.log(successfullResults);
+        throw new Error("Errore nel recupero dei dati da entrambe le chiamate");
+      }
+
+      addToSearchHistory(request, successfullResults);
+
+      setData(successfullResults);
       setLoading(false);
-      return response;
+      return successfullResults;
     } catch (err) {
       setError(err);
       setLoading(false);
