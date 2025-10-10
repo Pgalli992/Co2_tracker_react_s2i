@@ -25,13 +25,31 @@ const useApiRequest = () => {
         fetchFlagFromApi(request.country),
       ]);
 
+      if (dataResult.status === "rejected") {
+        console.error("Errore fetchDataFromApi:", dataResult.reason);
+        setError({
+          message:
+            dataResult.reason.message ||
+            "Errore nella chiamata fetchDataFromApi",
+        });
+      }
+
+      if (flagResult.status === "rejected") {
+        console.error("Errore fetchFlagFromApi:", flagResult.reason);
+        setError({
+          message:
+            flagResult.reason.message ||
+            "Errore nella chiamata fetchFlagFromApi",
+        });
+      }
+
       const successfullResults = {
         data: dataResult.status === "fulfilled" ? dataResult.value : [],
         flag: flagResult.status === "fulfilled" ? flagResult.value : [],
       };
 
       if (
-        successfullResults.data.length === 0 ||
+        successfullResults.data.length === 0 &&
         successfullResults.flag.length === 0
       ) {
         console.log(successfullResults);
@@ -44,7 +62,11 @@ const useApiRequest = () => {
       setLoading(false);
       return successfullResults;
     } catch (err) {
-      setError(err);
+      console.error("Errore catturato in useApiRequest:", err);
+      setError({
+        message: err.message || "Errore sconosciuto",
+        stack: err.stack || null,
+      });
       setLoading(false);
       throw err;
     }
