@@ -4,17 +4,17 @@ import {
   FlagOff,
   HardDrive,
   LandPlot,
+  Network,
   User,
 } from "lucide-react";
 import Separator from "./Separator";
 import { useAppContext } from "../../contexts/AppContext";
 
 function ResponseContent({ data }) {
-  // Se il dato arriva dalla 'searchHistory' avrà request e response.
-  const { request } = useAppContext();
-  const period = request?.period;
-  const responseData =
-    period === "current" ? data : period === "24h" ? data.response : data;
+  const { dataSource } = useAppContext();
+  const responseData = data.response ? data.response : data;
+
+  console.log("DATA SOURCE:", dataSource);
 
   return (
     <div className="flex w-80 flex-col items-center justify-center gap-4 py-4">
@@ -35,41 +35,39 @@ function ResponseContent({ data }) {
           </div>
         )}
       </div>
-      {period === "current" || period === "24h" ? (
-        <div className="flex flex-1 justify-center gap-2">
-          <div className="flex flex-col items-center justify-center gap-1">
-            <CloudSnow />
-            <p className="text-2xl font-bold">
-              {responseData.data.emissions[0]?.value}
-            </p>
-            <span className="text-sm text-gray-500">
-              {responseData.data.emissions[0]?.unit}
+      <div className="flex flex-1 justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <CloudSnow />
+          <p className="text-2xl font-bold">
+            {responseData.data.emissions[0]?.value}
+          </p>
+          <span className="text-sm text-gray-500">
+            {responseData.data.emissions[0]?.unit}
+          </span>
+        </div>
+        <Separator className="mx-4" />
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-1 items-center justify-center gap-2">
+            <User />
+            <span className="text-sm">
+              {responseData.flag[0]?.population.toLocaleString("it-IT")}
             </span>
           </div>
-          <Separator className="mx-4" />
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-1 items-center justify-center gap-2">
-              <User />
-              <span className="text-sm">
-                {responseData.flag[0]?.population.toLocaleString("it-IT")}
-              </span>
-            </div>
-            <div className="flex flex-1 items-center justify-center gap-2">
-              <LandPlot />
-              <span className="text-sm">
-                {responseData.flag[0]?.area.toLocaleString("it-IT")} mq
-              </span>
-            </div>
+          <div className="flex flex-1 items-center justify-center gap-2">
+            <LandPlot />
+            <span className="text-sm">
+              {responseData.flag[0]?.area.toLocaleString("it-IT")} mq
+            </span>
           </div>
         </div>
-      ) : (
-        <div>{responseData}</div>
-      )}
-      {data.response ? (
+      </div>
+      {dataSource === "cache" ? (
         <HardDrive className="absolute top-0 right-4/11" color="#0fda1c" />
-      ) : (
-        <Earth className="absolute top-0 right-4/11" color="#e9c916" />
-      )}
+      ) : dataSource === "partial-cache" ? (
+        <Network className="absolute top-0 right-4/11" color="#ffe066" />
+      ) : dataSource === "api" ? (
+        <Earth className="absolute top-0 right-4/11" color="#f1730b" />
+      ) : null}
     </div>
   );
 }
