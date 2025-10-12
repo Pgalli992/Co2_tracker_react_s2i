@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchCountries } from "../../services/api";
-import { useAppContext } from "../../contexts/AppContext";
-import InputSelect from "./InputSelect";
+import { fetchCountries } from "../services/api";
+import { useAppContext } from "../contexts/AppContext";
+import InputSelect from "./atoms/InputSelect";
 
 function CountrySelector({
   selectedCountry,

@@ -48,7 +48,7 @@ const parseApiResponse = (response, period) => {
     case "current":
       return {
         country: response.country,
-        emissions: [response.emissions],
+        emissions: response.emissions,
       };
 
     case "24h":

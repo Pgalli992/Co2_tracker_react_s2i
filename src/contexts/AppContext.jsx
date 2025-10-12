@@ -11,15 +11,23 @@ export const AppProvider = ({ children }) => {
   const [dataSource, setDataSource] = useState(null);
 
   const addToSearchHistory = (request, response) => {
-    setSearchHistory((prev) => [...prev, { request, response }]);
+    setSearchHistory((prev) => {
+      const filteredHistory = prev.filter(
+        (entry) =>
+          !(
+            entry.request.country === request.country &&
+            entry.request.period === request.period &&
+            entry.request.year === request.year
+          )
+      );
+
+      return [...filteredHistory, { request, response }];
+    });
   };
 
   const getFromSearchHistory = (request) => {
-    console.log("searchHistory attuale:", searchHistory);
-    console.log("Richiesta attuale:", request);
-
     let matchedEntry = null;
-    let matchType = null; // "exact" o "partial"
+    let matchType = null;
 
     for (const e of searchHistory) {
       const sameCountry = e.request.country === request.country;
@@ -35,19 +43,15 @@ export const AppProvider = ({ children }) => {
       if (totallyEqual) {
         matchedEntry = e;
         matchType = "exact";
-        break; // trovato il match perfetto, possiamo uscire
+        break;
       }
 
       const partialMatch = sameCountry && (!samePeriod || !sameYear);
       if (!matchedEntry && partialMatch) {
         matchedEntry = e;
         matchType = "partial";
-        // NON facciamo break, così trova prima eventuali match esatti in seguito (ma opzionale)
       }
     }
-
-    console.log("Entry trovata:", matchedEntry);
-    console.log("Tipo di match:", matchType);
 
     if (!matchedEntry) return null;
 

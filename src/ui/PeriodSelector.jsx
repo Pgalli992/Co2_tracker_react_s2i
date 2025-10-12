@@ -1,5 +1,5 @@
-import InputRadioGroup from "./InputRadioGroup";
-import InputYear from "./InputYear";
+import InputRadioGroup from "./atoms/InputRadioGroup";
+import InputYear from "./atoms/InputYear";
 
 function PeriodSelector({
   selectedPeriod,

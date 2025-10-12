@@ -11,8 +11,7 @@ const useApiRequest = () => {
   const handleRequest = async (request) => {
     setLoading(true);
     setError(null);
-
-    console.log("RICHIESTA INVIATA:", request);
+    setData(null);
 
     try {
       const cachedData = getFromSearchHistory(request);
@@ -21,7 +20,9 @@ const useApiRequest = () => {
         const { entry, isTotallyEqual, isOnlyCountryEqual } = cachedData;
 
         if (isTotallyEqual) {
+          addToSearchHistory(request, entry.response);
           setData(entry.response);
+          console.log("Dati recuperati dalla cache:", entry.response);
           setLoading(false);
           setDataSource("cache");
           return entry.data;
@@ -36,6 +37,8 @@ const useApiRequest = () => {
             data: dataResult,
             flag: flagFromHistory,
           };
+
+          console.log("Dati recuperati dalla cache:", successfullResults);
 
           addToSearchHistory(request, successfullResults);
           setData(successfullResults);
@@ -77,6 +80,8 @@ const useApiRequest = () => {
       ) {
         throw new Error("Errore nel recupero dei dati da entrambe le chiamate");
       }
+
+      console.log("Dati recuperati dall'API:", successfullResults);
 
       addToSearchHistory(request, successfullResults);
       setData(successfullResults);

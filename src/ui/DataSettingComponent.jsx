@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import CountrySelector from "./atoms/CountrySelector";
-import PeriodSelector from "./atoms/PeriodSelector";
+import CountrySelector from "./CountrySelector";
+import PeriodSelector from "./PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
-import MessageContainer from "./atoms/MessageContainter";
+import MessageContainer from "./MessageContainter";
 import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
 import InputText from "./atoms/InputText";
@@ -41,6 +41,7 @@ function DataSettingComponent({ className }) {
         period: selectedPeriod,
         year: selectedPeriod === "year" ? selectedYear : undefined,
       };
+      console.log("Request to be sent:", request);
 
       try {
         await handleRequest(request);
@@ -117,7 +118,7 @@ function DataSettingComponent({ className }) {
         <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
           <div className="h-12 text-center">
             <span className="text-sm">
-              Seleziona il periodo di <br /> rilevazione:
+              Select the survey <br /> period:
             </span>
           </div>
           <PeriodSelector
