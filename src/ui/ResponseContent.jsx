@@ -20,13 +20,13 @@ function ResponseContent({ data }) {
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 py-4">
-      <div className="flex-1">
+      <div className="flex flex-1 flex-col items-center justify-center gap-2">
         <p className="text-center font-bold">{responseData.country.name}</p>
         {data.flag[0]?.flags.svg ? (
           <img
             src={data.flag[0]?.flags.svg}
             alt={`Flag of ${responseData.country.name}`}
-            className="h-20 w-25"
+            className="h-25 w-40 border-[.5px] object-cover"
           />
         ) : (
           <div className="flex flex-col items-center justify-center gap-2">

@@ -11,34 +11,36 @@ function HistoryComponent({ className }) {
   };
 
   return (
-    <div className={`mt-10 overflow-y-auto p-4 ${className}`}>
+    <>
       <div className="flex items-center justify-center gap-2">
         <History />
-        <h2 className="text-center font-bold">Latest Research</h2>
+        <h2 className="mr-20 text-center font-bold">Latest Research</h2>
       </div>
-      <ul className="mt-10 flex flex-wrap gap-5 space-y-1">
-        {searchHistory.map((item) => (
-          <li
-            key={item.request.country + item.request.period}
-            onClick={() => handleHistoryClick(item)}
-            className="w-30 cursor-pointer rounded-lg px-2 py-2 text-center text-xs shadow-sm transition-all duration-200 hover:scale-105 hover:bg-amber-100/80 active:scale-95"
-          >
-            <div className="flex flex-col items-center justify-center gap-3">
-              <img
-                src={item.response.flag[0]?.flags.svg}
-                alt={`Flag of ${item.response.flag[0]?.name.common}`}
-                className="h-5 w-7"
-              />
-              <span className="inline-block w-full overflow-hidden font-bold text-nowrap text-ellipsis">
-                {item.request.country.toUpperCase()}
-              </span>
-              - <br />
-              {item.request.period}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className={`mt-4 overflow-y-auto p-4 ${className}`}>
+        <ul className="flex flex-wrap gap-5 space-y-1">
+          {searchHistory.map((item) => (
+            <li
+              key={item.request.country + item.request.period}
+              onClick={() => handleHistoryClick(item)}
+              className="w-30 cursor-pointer rounded-lg px-2 py-2 text-center text-xs shadow-sm transition-all duration-200 hover:scale-105 hover:bg-amber-100/80 active:scale-95"
+            >
+              <div className="flex flex-col items-center justify-center gap-3">
+                <img
+                  src={item.response.flag[0]?.flags.svg}
+                  alt={`Flag of ${item.response.flag[0]?.name.common}`}
+                  className="h-5 w-7"
+                />
+                <span className="inline-block w-full overflow-hidden font-bold text-nowrap text-ellipsis">
+                  {item.request.country.toUpperCase()}
+                </span>
+                - <br />
+                {item.request.period}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 
