@@ -65,7 +65,7 @@ function DataSettingComponent({ className }) {
       <div
         className={`relative flex w-full justify-between gap-3 ${className}`}
       >
-        <div className="mt-6 flex flex-1 flex-col items-center justify-center gap-6">
+        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
           <div className="flex flex-col gap-2">
             <InputRadio
               value="country"
@@ -114,7 +114,12 @@ function DataSettingComponent({ className }) {
           </div>
         </div>
         <Separator className="-translate-y-5" />
-        <div className="relative mb-4 flex flex-1 items-end justify-center">
+        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
+          <div className="h-12 text-center">
+            <span className="text-sm">
+              Seleziona il periodo di <br /> rilevazione:
+            </span>
+          </div>
           <PeriodSelector
             selectedPeriod={selectedPeriod}
             setSelectedPeriod={setSelectedPeriod}
