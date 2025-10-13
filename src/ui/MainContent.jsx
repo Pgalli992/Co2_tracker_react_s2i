@@ -1,5 +1,4 @@
 import DataResponseComponent from "./DataResponseComponent";
-import DataSettingComponent from "./DataSettingComponent";
 import EmissionsChart from "./EmissionChart";
 
 function MainContent({ className }) {
