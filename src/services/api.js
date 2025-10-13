@@ -1,3 +1,5 @@
+import { countries } from "../assets/countries.js";
+
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const isProd = import.meta.env.PROD;
@@ -68,10 +70,43 @@ const parseApiResponse = (response, period) => {
       throw new Error("Tipo di periodo non supportato");
   }
 };
+
+const getISO3FromCountryId = (countryId) => {
+  const countryName = countryId
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  let country = countries.find(
+    (c) =>
+      c.name.toLowerCase() === countryName.toLowerCase() ||
+      c.name.toLowerCase().replace(/\s+/g, "-") === countryId.toLowerCase()
+  );
+
+  if (!country) {
+    const specialMappings = {
+      "czech-republic": "Czech Republic",
+      "united-kingdom": "United Kingdom",
+    };
+
+    const mappedName = specialMappings[countryId];
+    if (mappedName) {
+      country = countries.find((c) => c.name === mappedName);
+    }
+  }
+
+  return country.iso3;
+};
+
 export const fetchFlagFromApi = async (countryId) => {
   try {
+    const iso3 = getISO3FromCountryId(countryId);
+    if (!iso3) {
+      throw new Error(`Country not found for ID: ${countryId}`);
+    }
+
     const response = await fetch(
-      `https://restcountries.com/v3.1/name/${countryId}`
+      `https://restcountries.com/v3.1/alpha?codes=${iso3}`
     );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

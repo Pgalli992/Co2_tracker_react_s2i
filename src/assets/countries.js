@@ -1,17 +1,5 @@
 export const countries = [
   {
-    name: "United States of America",
-    iso2: "US",
-    iso3: "USA",
-    coordinates: { latitude: 37.0902, longitude: -95.7129 },
-  },
-  {
-    name: "Canada",
-    iso2: "CA",
-    iso3: "CAN",
-    coordinates: { latitude: 56.1304, longitude: -106.3468 },
-  },
-  {
     name: "Austria",
     iso2: "AT",
     iso3: "AUT",
@@ -36,13 +24,7 @@ export const countries = [
     coordinates: { latitude: 45.1, longitude: 15.2 },
   },
   {
-    name: "Cyprus",
-    iso2: "CY",
-    iso3: "CYP",
-    coordinates: { latitude: 35.1264, longitude: 33.4299 },
-  },
-  {
-    name: "Czechia",
+    name: "Czech Republic",
     iso2: "CZ",
     iso3: "CZE",
     coordinates: { latitude: 49.8175, longitude: 15.4729 },
@@ -52,18 +34,6 @@ export const countries = [
     iso2: "DK",
     iso3: "DNK",
     coordinates: { latitude: 56.2639, longitude: 9.5018 },
-  },
-  {
-    name: "EU-27",
-    iso2: "EU",
-    iso3: "EUU",
-    coordinates: { latitude: 50.8503, longitude: 4.3517 },
-  },
-  {
-    name: "EU27+1",
-    iso2: "EU",
-    iso3: "EU1",
-    coordinates: { latitude: 50.8503, longitude: 4.3517 },
   },
   {
     name: "Estonia",
@@ -102,12 +72,6 @@ export const countries = [
     coordinates: { latitude: 47.1625, longitude: 19.5033 },
   },
   {
-    name: "Ireland",
-    iso2: "IE",
-    iso3: "IRL",
-    coordinates: { latitude: 53.1424, longitude: -7.6921 },
-  },
-  {
     name: "Italy",
     iso2: "IT",
     iso3: "ITA",
@@ -126,22 +90,16 @@ export const countries = [
     coordinates: { latitude: 55.1694, longitude: 23.8813 },
   },
   {
-    name: "Luxembourg",
-    iso2: "LU",
-    iso3: "LUX",
-    coordinates: { latitude: 49.8153, longitude: 6.1296 },
-  },
-  {
-    name: "Malta",
-    iso2: "MT",
-    iso3: "MLT",
-    coordinates: { latitude: 35.9375, longitude: 14.3754 },
-  },
-  {
     name: "Netherlands",
     iso2: "NL",
     iso3: "NLD",
     coordinates: { latitude: 52.1326, longitude: 5.2913 },
+  },
+  {
+    name: "Norway",
+    iso2: "NO",
+    iso3: "NOR",
+    coordinates: { latitude: 60.472, longitude: 8.4689 },
   },
   {
     name: "Poland",
@@ -160,6 +118,12 @@ export const countries = [
     iso2: "RO",
     iso3: "ROU",
     coordinates: { latitude: 45.9432, longitude: 24.9668 },
+  },
+  {
+    name: "Serbia",
+    iso2: "RS",
+    iso3: "SRB",
+    coordinates: { latitude: 44.0165, longitude: 21.0059 },
   },
   {
     name: "Slovakia",

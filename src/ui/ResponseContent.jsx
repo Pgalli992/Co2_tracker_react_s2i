@@ -71,11 +71,17 @@ function ResponseContent({ data }) {
         <AnnualEmissions data={data} />
       )}
       {dataSource === "cache" ? (
-        <HardDrive className="absolute top-0 right-4/11" color="#0fda1c" />
+        <HardDrive
+          className="absolute top-0 right-3/11 size-10"
+          color="#0fda1c"
+        />
       ) : dataSource === "partial-cache" ? (
-        <Network className="absolute top-0 right-4/11" color="#ffe066" />
+        <Network
+          className="absolute top-0 right-3/11 size-10"
+          color="#f6ce2f"
+        />
       ) : dataSource === "api" ? (
-        <Earth className="absolute top-0 right-4/11" color="#f1730b" />
+        <Earth className="absolute top-0 right-3/11 size-10" color="#f1730b" />
       ) : null}
     </div>
   );

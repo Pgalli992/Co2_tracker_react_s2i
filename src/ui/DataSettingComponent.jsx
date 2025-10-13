@@ -14,6 +14,7 @@ import {
   Map,
   Settings2,
 } from "lucide-react";
+import CoordinatesInputs from "./CoordinatesInputs";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -99,18 +100,10 @@ function DataSettingComponent({ className }) {
                 countryModeSelection={countryModeSelection}
               />
             ) : (
-              <div
-                className={`flex w-full flex-col gap-4 ${countryModeSelection !== "coordinates" ? "cursor-not-allowed opacity-50" : ""}`}
-              >
-                <InputText
-                  label={"Latitude"}
-                  disabled={countryModeSelection !== "coordinates"}
-                />
-                <InputText
-                  label={"Longitude"}
-                  disabled={countryModeSelection !== "coordinates"}
-                />
-              </div>
+              <CoordinatesInputs
+                countryModeSelection={countryModeSelection}
+                setSelectedCountry={setSelectedCountry}
+              />
             )}
           </div>
         </div>

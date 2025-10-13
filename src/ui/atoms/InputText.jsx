@@ -1,4 +1,4 @@
-function InputText({ label, disabled, className }) {
+function InputText({ label, value, onChange, className, disabled }) {
   return (
     <div
       className={`flex h-min flex-col rounded-lg border-[.5px] px-2 py-1 focus-within:scale-105 focus-within:border-[1px] focus-within:shadow-sm ${className}`}
@@ -10,6 +10,8 @@ function InputText({ label, disabled, className }) {
         id={label}
         type="text"
         placeholder={label}
+        value={value || ""}
+        onChange={(e) => onChange && onChange(e)}
         className="-translate-y-1/2 pl-2 focus-within:outline-none focus:caret-black focus:placeholder:opacity-0"
         disabled={disabled}
       />
