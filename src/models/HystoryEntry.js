@@ -10,7 +10,6 @@ class HistoryEntry {
     this.timestamp = new Date();
   }
 
-  // Confronto richieste fatte
   isSameRequest(otherRequest) {
     return (
       this.request.countryId === otherRequest.countryId &&

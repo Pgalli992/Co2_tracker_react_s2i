@@ -1,5 +1,6 @@
 import DataResponseComponent from "./DataResponseComponent";
 import DataSettingComponent from "./DataSettingComponent";
+import EmissionsChart from "./EmissionChart";
 
 function MainContent({ className }) {
   return (
@@ -7,6 +8,7 @@ function MainContent({ className }) {
       className={`flex flex-col gap-20 rounded-lg p-4 px-2 py-12 shadow-sm${className}`}
     >
       <DataResponseComponent className="w-1/3" />
+      <EmissionsChart />
     </div>
   );
 }
