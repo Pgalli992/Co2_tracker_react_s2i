@@ -3,7 +3,6 @@ import { countries } from "../assets/countries.js";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const RESTCOUNTRIES_URL = import.meta.env.VITE_RESTCOUNTRIES_URL;
-const isProd = import.meta.env.PROD;
 
 const apiRequestOptions = {
   method: "GET",
@@ -16,10 +15,7 @@ const apiRequestOptions = {
 
 export const fetchCountries = async () => {
   try {
-    const response = await fetch(
-      isProd ? `${BASE_URL}/countries/` : `/api/countries/`,
-      apiRequestOptions
-    );
+    const response = await fetch(`/api/countries/`, apiRequestOptions);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -106,7 +102,7 @@ export const fetchFlagFromApi = async (countryId) => {
       throw new Error(`Country not found for ID: ${countryId}`);
     }
 
-    const response = await fetch(`${RESTCOUNTRIES_URL}ß/alpha?codes=${iso3}`);
+    const response = await fetch(`${RESTCOUNTRIES_URL}/alpha?codes=${iso3}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -123,17 +119,11 @@ export const fetchDataFromApi = async (request) => {
 
   let url;
   if (period === "current") {
-    url = isProd
-      ? `${BASE_URL}/current-emissions/${country}/`
-      : `/api/current-emissions/${country}/`;
+    url = `/api/current-emissions/${country}/`;
   } else if (period === "24h") {
-    url = isProd
-      ? `${BASE_URL}/emissions-previous-24h/${country}/`
-      : `/api/emissions-previous-24h/${country}/`;
+    url = `/api/emissions-previous-24h/${country}/`;
   } else if (period === "year" && year) {
-    url = isProd
-      ? `${BASE_URL}/archive/${country}/${year}/`
-      : `/api/archive/${country}/${year}/`;
+    url = `/api/archive/${country}/${year}/`;
   } else {
     throw new Error("Periodo o parametri non validi");
   }
