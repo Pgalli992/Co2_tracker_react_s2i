@@ -12,8 +12,10 @@ function HistoryComponent({ className }) {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-2">
-        <History />
+      <div className="group flex items-center justify-center gap-2">
+        <div className="group-hover:scale-115 group-hover:animate-spin">
+          <History />
+        </div>
         <h2 className="mr-20 text-center font-bold">Latest Research</h2>
       </div>
       <div className={`mt-4 overflow-y-auto p-4 ${className}`}>
@@ -24,7 +26,7 @@ function HistoryComponent({ className }) {
               onClick={() => handleHistoryClick(item)}
               className="w-30 cursor-pointer rounded-lg px-2 py-2 text-center text-xs shadow-sm transition-all duration-200 hover:scale-105 hover:bg-amber-100/80 active:scale-95"
             >
-              <div className="flex flex-col items-center justify-center gap-3">
+              <div className="flex flex-col items-center justify-center gap-3 py-4">
                 <img
                   src={item.response.flag[0]?.flags.svg}
                   alt={`Flag of ${item.response.flag[0]?.name.common}`}

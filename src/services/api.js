@@ -2,6 +2,7 @@ import { countries } from "../assets/countries.js";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const RESTCOUNTRIES_URL = import.meta.env.VITE_RESTCOUNTRIES_URL;
 const isProd = import.meta.env.PROD;
 
 const apiRequestOptions = {
@@ -105,9 +106,7 @@ export const fetchFlagFromApi = async (countryId) => {
       throw new Error(`Country not found for ID: ${countryId}`);
     }
 
-    const response = await fetch(
-      `https://restcountries.com/v3.1/alpha?codes=${iso3}`
-    );
+    const response = await fetch(`${RESTCOUNTRIES_URL}ß/alpha?codes=${iso3}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

@@ -10,16 +10,15 @@ import {
 import Separator from "./atoms/Separator";
 import { useAppContext } from "../contexts/AppContext";
 import AnnualEmissions from "./AnnualEmissions";
+import Emissions24h from "./Emission24h";
 
 function ResponseContent({ data }) {
   const { dataSource, request } = useAppContext();
 
-  console.log("DATA ************", data);
-
   const responseData = data.data ? data.data : data;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 py-4">
+    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl py-4 shadow-xl">
       <div className="flex flex-1 flex-col items-center justify-center gap-2">
         <p className="text-center font-bold">{responseData.country.name}</p>
         {data.flag[0]?.flags.svg ? (
@@ -35,41 +34,41 @@ function ResponseContent({ data }) {
           </div>
         )}
       </div>
-      {request.period !== "year" ? (
-        <div className="flex flex-1 justify-center gap-2">
-          <div className="flex flex-col items-center justify-center gap-1">
-            <CloudSnow />
-            <p className="text-2xl font-bold">
-              {request.period === "24h"
-                ? responseData.emissions
-                    .map((e) => e.value)
-                    .reduce((a, b) => a + b, 0)
-                    .toLocaleString("it-IT")
-                : responseData.emissions.value.toLocaleString("it-IT")}
-            </p>
-            <span className="text-sm text-gray-500">
-              {responseData.emissions?.unit}
+      <div className="flex flex-1 justify-center gap-2">
+        {request.period === "current" ? (
+          <>
+            <div className="flex flex-col items-center justify-center gap-1">
+              <CloudSnow />
+              <p className="text-2xl font-bold">
+                {responseData.emissions.value.toLocaleString("it-IT")}
+              </p>
+              <span className="text-sm text-gray-500">
+                {responseData.emissions?.unit}
+              </span>
+            </div>
+            <Separator className="mx-4" />
+          </>
+        ) : null}
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-1 items-center justify-center gap-2">
+            <User />
+            <span className="text-sm">
+              {data.flag[0]?.population.toLocaleString("it-IT")}
             </span>
           </div>
-          <Separator className="mx-4" />
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-1 items-center justify-center gap-2">
-              <User />
-              <span className="text-sm">
-                {data.flag[0]?.population.toLocaleString("it-IT")}
-              </span>
-            </div>
-            <div className="flex flex-1 items-center justify-center gap-2">
-              <LandPlot />
-              <span className="text-sm">
-                {data.flag[0]?.area.toLocaleString("it-IT")} mq
-              </span>
-            </div>
+          <div className="flex flex-1 items-center justify-center gap-2">
+            <LandPlot />
+            <span className="text-sm">
+              {data.flag[0]?.area.toLocaleString("it-IT")} mq
+            </span>
           </div>
         </div>
-      ) : (
+      </div>
+      {request.period === "24h" ? (
+        <Emissions24h data={data} />
+      ) : request.period === "year" ? (
         <AnnualEmissions data={data} />
-      )}
+      ) : null}
       {dataSource === "cache" ? (
         <HardDrive
           className="absolute top-0 right-3/11 size-10"

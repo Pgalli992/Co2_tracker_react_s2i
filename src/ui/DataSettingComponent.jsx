@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CountrySelector from "./CountrySelector";
 import PeriodSelector from "./PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
 import MessageContainer from "./MessageContainter";
 import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
-import InputText from "./atoms/InputText";
 import InputRadio from "./atoms/InputRadio";
 import Separator from "./atoms/Separator";
 import {
-  CalendarSearch,
   CalendarSearchIcon,
   Map,
+  SendHorizontal,
   Settings2,
 } from "lucide-react";
 import CoordinatesInputs from "./CoordinatesInputs";
+import BtnPrimary from "./atoms/BtnPrimary";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -25,34 +25,45 @@ function DataSettingComponent({ className }) {
 
   const [countryModeSelection, setCountryModeSelection] = useState("country");
 
-  useEffect(() => {
-    if (!selectedCountry || !selectedPeriod) return;
+  const [validationErrors, setValidationErrors] = useState({
+    country: false,
+  });
 
-    const req = {
+  const fetchData = async () => {
+    setValidationErrors({ country: false });
+
+    if (!selectedCountry) {
+      setValidationErrors({ country: true });
+      return;
+    }
+
+    const request = {
       country: selectedCountry,
       period: selectedPeriod,
       year: selectedPeriod === "year" ? selectedYear : undefined,
     };
+    console.log("Request to be sent:", request);
 
-    setRequest(req);
+    setRequest(request);
 
-    const fetchData = async () => {
-      const request = {
-        country: selectedCountry,
-        period: selectedPeriod,
-        year: selectedPeriod === "year" ? selectedYear : undefined,
-      };
-      console.log("Request to be sent:", request);
+    try {
+      await handleRequest(request);
+    } catch (err) {
+      console.error("Errore durante la ricerca:", err);
+    }
+  };
 
-      try {
-        await handleRequest(request);
-      } catch (err) {
-        console.error("Errore durante la ricerca:", err);
-      }
-    };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetchData();
-  }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
+  };
+
+  // Funzione per gestire l'onChange della modalità di selezione paese in modo da resettare l'errore.
+  const handleCountryModeChange = (mode) => {
+    setCountryModeSelection(mode);
+    setSelectedCountry("");
+    setValidationErrors({ country: false });
+  };
 
   return (
     <>
@@ -72,8 +83,7 @@ function DataSettingComponent({ className }) {
             <InputRadio
               value="country"
               onChange={() => {
-                setCountryModeSelection("country");
-                setSelectedCountry("");
+                handleCountryModeChange("country");
               }}
               checked={countryModeSelection === "country"}
               className={"text-sm"}
@@ -82,17 +92,14 @@ function DataSettingComponent({ className }) {
             </InputRadio>
             <InputRadio
               value="coordinates"
-              onChange={() => {
-                setCountryModeSelection("coordinates");
-                setSelectedCountry("");
-              }}
+              onChange={() => handleCountryModeChange("coordinates")}
               checked={countryModeSelection === "coordinates"}
               className={"text-sm"}
             >
               Use Coordinates
             </InputRadio>
           </div>
-          <div className="flex h-36 w-[70%] items-start justify-center">
+          <div className="flex h-36 w-[70%] flex-col items-center justify-start">
             {countryModeSelection === "country" ? (
               <CountrySelector
                 selectedCountry={selectedCountry}
@@ -104,6 +111,11 @@ function DataSettingComponent({ className }) {
                 countryModeSelection={countryModeSelection}
                 setSelectedCountry={setSelectedCountry}
               />
+            )}
+            {validationErrors.country && (
+              <span className="mt-2 text-center text-sm font-medium text-red-500">
+                ⚠️ Please select a country before fetching data
+              </span>
             )}
           </div>
         </div>
@@ -127,6 +139,18 @@ function DataSettingComponent({ className }) {
           )}
           {error && <MessageContainer message={`Errore: ${error.message}`} />}
         </div>
+      </div>
+      <div className="flex items-center justify-center">
+        <BtnPrimary
+          className="group mb-8 flex items-center justify-center gap-2"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          <div className="group-hover:animate-bounce">
+            <SendHorizontal />
+          </div>
+          <span>Fetch Data</span>
+        </BtnPrimary>
       </div>
     </>
   );

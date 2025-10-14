@@ -39,16 +39,18 @@ function AnnualEmissions({ data }) {
 
   return (
     <div className="flex w-full flex-col items-center gap-4 py-4">
-      <h2 className="text-xl font-bold">Annual Emissions for {country.name}</h2>
+      <h2 className="text-xl font-bold">
+        Annual aggregate emissions for {country.name}
+      </h2>
       <p className="text-sm text-gray-500">
         Year: {Object?.keys(year)} -{" "}
         {year[Object.keys(year)] ? "Complete" : "Incomplete"}
       </p>
-      <div className="mx-8 flex w-full gap-4 overflow-x-auto px-10 pb-4">
+      <div className="minh-content mx-8 flex w-full gap-4 overflow-x-auto px-10 py-4">
         {Object.entries(months)?.map(([month, details]) => (
           <div
             key={month}
-            className="flex w-50 flex-col items-center rounded border p-4 shadow"
+            className="flex w-50 flex-col items-center rounded-xl p-4 shadow-sm duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300"
           >
             <p className="mb-4 font-bold">{monthsName[month - 1]}</p>
             {details ? (
