@@ -1,7 +1,40 @@
-function MessageContainer({ message }) {
+import { MessageCircleMore, MessageCircleX } from "lucide-react";
+
+function MessageContainer({
+  message,
+  messageError,
+  onClose,
+  bg = "bg-amber-100/90",
+}) {
+  const handleClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded bg-white p-4 shadow">
-      <p>{message}</p>
+    <div
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-xs"
+      onClick={handleClick}
+    >
+      <div
+        className={`${bg} relative flex h-1/4 w-1/4 flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-xl`}
+      >
+        {message ? (
+          <MessageCircleMore size={48} color="blue" />
+        ) : (
+          <MessageCircleX size={48} color="red" />
+        )}
+        <p className="text-xl">{message || messageError}</p>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 ml-4 size-5 text-gray-500 hover:text-gray-700"
+          >
+            ✕
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,10 +3,16 @@ import fetchDataFromApi, { fetchFlagFromApi } from "../services/api";
 import { useAppContext } from "../contexts/AppContext";
 
 const useApiRequest = () => {
-  const { addToSearchHistory, getFromSearchHistory } = useAppContext();
+  const {
+    addToSearchHistory,
+    getFromSearchHistory,
+    data,
+    setData,
+    setDataSource,
+    showError,
+  } = useAppContext();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { data, setData, setDataSource } = useAppContext();
+  const { loading, setLoading } = useAppContext();
 
   const handleRequest = async (request) => {
     setLoading(true);
@@ -22,23 +28,20 @@ const useApiRequest = () => {
         if (isTotallyEqual) {
           addToSearchHistory(request, entry.response);
           setData(entry.response);
-          console.log("Dati recuperati dalla cache:", entry.response);
           setLoading(false);
           setDataSource("cache");
           return entry.data;
         }
 
-        if (isOnlyCountryEqual) {
+        if (isOnlyCountryEqual && entry.response.flag.length > 0) {
+          // Così se nella prima chimara non ho recuperato la bandiera, non uso la cache ma rieseguo la chiamata
           const flagFromHistory = entry.response.flag;
-
           const dataResult = await fetchDataFromApi(request);
 
           const successfullResults = {
             data: dataResult,
             flag: flagFromHistory,
           };
-
-          console.log("Dati recuperati dalla cache:", successfullResults);
 
           addToSearchHistory(request, successfullResults);
           setData(successfullResults);
@@ -54,19 +57,17 @@ const useApiRequest = () => {
       ]);
 
       if (dataResult.status === "rejected") {
-        setError({
-          message:
-            dataResult.reason.message ||
-            "Errore nella chiamata fetchDataFromApi",
-        });
+        const errorMsg =
+          dataResult.reason.message || "Errore nella chiamata fetchDataFromApi";
+        setError({ message: errorMsg });
+        showError({ message: errorMsg });
       }
 
       if (flagResult.status === "rejected") {
-        setError({
-          message:
-            flagResult.reason.message ||
-            "Errore nella chiamata fetchFlagFromApi",
-        });
+        const errorMsg =
+          flagResult.reason.message || "Errore nella chiamata fetchFlagFromApi";
+        setError({ message: errorMsg });
+        showError({ message: errorMsg });
       }
 
       const successfullResults = {
@@ -89,11 +90,12 @@ const useApiRequest = () => {
       setLoading(false);
       return successfullResults;
     } catch (err) {
-      console.error("Errore catturato in handleRequest:", err);
-      setError({
+      const errorObj = {
         message: err.message || "Errore sconosciuto",
         stack: err.stack || null,
-      });
+      };
+      setError(errorObj);
+      showError(errorObj);
       setLoading(false);
       throw err;
     }

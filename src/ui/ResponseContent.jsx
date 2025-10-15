@@ -18,7 +18,7 @@ function ResponseContent({ data }) {
   const responseData = data.data ? data.data : data;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl py-4 shadow-xl">
+    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl pb-10 shadow-md">
       <div className="flex flex-1 flex-col items-center justify-center gap-2">
         <p className="text-center font-bold">{responseData.country.name}</p>
         {data.flag[0]?.flags.svg ? (
@@ -53,13 +53,13 @@ function ResponseContent({ data }) {
           <div className="flex flex-1 items-center justify-center gap-2">
             <User />
             <span className="text-sm">
-              {data.flag[0]?.population.toLocaleString("it-IT")}
+              {data.flag[0]?.population.toLocaleString("it-IT") || "N/A"}
             </span>
           </div>
           <div className="flex flex-1 items-center justify-center gap-2">
             <LandPlot />
             <span className="text-sm">
-              {data.flag[0]?.area.toLocaleString("it-IT")} mq
+              {data.flag[0]?.area.toLocaleString("it-IT") || "N/A"} mq
             </span>
           </div>
         </div>
@@ -70,17 +70,11 @@ function ResponseContent({ data }) {
         <AnnualEmissions data={data} />
       ) : null}
       {dataSource === "cache" ? (
-        <HardDrive
-          className="absolute top-0 right-3/11 size-10"
-          color="#0fda1c"
-        />
+        <HardDrive className="absolute top-0 right-5 size-10" color="#0fda1c" />
       ) : dataSource === "partial-cache" ? (
-        <Network
-          className="absolute top-0 right-3/11 size-10"
-          color="#f6ce2f"
-        />
+        <Network className="absolute top-0 right-5 size-10" color="#f6ce2f" />
       ) : dataSource === "api" ? (
-        <Earth className="absolute top-0 right-3/11 size-10" color="#f1730b" />
+        <Earth className="absolute top-0 right-5 size-10" color="#f1730b" />
       ) : null}
     </div>
   );

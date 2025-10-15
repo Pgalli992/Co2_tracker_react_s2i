@@ -10,7 +10,23 @@ export const AppProvider = ({ children }) => {
   const [data, setData] = useState(null);
   const [request, setRequest] = useState(null);
   const [dataSource, setDataSource] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const [globalMessage, setGlobalMessage] = useState(null);
+  const [globalError, setGlobalError] = useState(null);
+
+  const showMessage = (message) => {
+    setGlobalMessage(message);
+  };
+
+  const showError = (error) => {
+    setGlobalError(error);
+  };
+
+  const clearMessage = () => {
+    setGlobalMessage(null);
+    setGlobalError(null);
+  };
 
   const findNearestCountry = (lat, lng) => {
     if (!lat || !lng) return null;
@@ -102,6 +118,8 @@ export const AppProvider = ({ children }) => {
         request,
         setRequest,
         dataSource,
+        loading,
+        setLoading,
         coordinates,
         setCoordinates,
         findNearestCountry,
@@ -110,6 +128,11 @@ export const AppProvider = ({ children }) => {
         addToSearchHistory,
         getFromSearchHistory,
         staticCountries,
+        globalMessage,
+        globalError,
+        showMessage,
+        showError,
+        clearMessage,
       }}
     >
       {children}

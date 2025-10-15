@@ -2,8 +2,6 @@ import { useState } from "react";
 import CountrySelector from "./CountrySelector";
 import PeriodSelector from "./PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
-import MessageContainer from "./MessageContainter";
-import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
 import InputRadio from "./atoms/InputRadio";
 import Separator from "./atoms/Separator";
@@ -20,8 +18,8 @@ function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState("current");
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const { setRequest } = useAppContext();
-  const { loading, error, handleRequest } = useApiRequest();
+  const { setRequest, loading } = useAppContext();
+  const { handleRequest } = useApiRequest();
 
   const [countryModeSelection, setCountryModeSelection] = useState("country");
 
@@ -78,7 +76,7 @@ function DataSettingComponent({ className }) {
       <div
         className={`relative flex w-full justify-between gap-3 ${className}`}
       >
-        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
+        <div className="mt-8 flex flex-1 flex-col items-center justify-start gap-8">
           <div className="flex flex-col gap-2">
             <InputRadio
               value="country"
@@ -132,12 +130,6 @@ function DataSettingComponent({ className }) {
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
           />
-          {loading && (
-            <div className="bg-aero-100/20 filter-blur-lg fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center">
-              <RingLoader loading={loading} size={150} />
-            </div>
-          )}
-          {error && <MessageContainer message={`Errore: ${error.message}`} />}
         </div>
       </div>
       <div className="flex items-center justify-center">

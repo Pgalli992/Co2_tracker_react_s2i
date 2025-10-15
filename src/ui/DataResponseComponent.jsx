@@ -3,19 +3,15 @@ import MessageContainer from "./MessageContainter";
 
 import ResponseContent from "./ResponseContent";
 
-function DataResponseComponent() {
-  const { data, error } = useApiRequest();
+function DataResponseComponent({ className }) {
+  const { data } = useApiRequest();
 
   return (
-    <div className="relative flex w-full items-center justify-center">
+    <div
+      className={`relative flex w-full items-start justify-center ${className}`}
+    >
       <div className="relative flex w-full items-center justify-center">
-        {error ? (
-          <MessageContainer message={`Errore: ${error.message}`} />
-        ) : data ? (
-          <ResponseContent data={data} />
-        ) : (
-          <MessageContainer message={"Imposta i criteri di ricerca"} />
-        )}
+        {data ? <ResponseContent data={data} /> : null}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function HistoryComponent({ className }) {
         <div className="group-hover:scale-115 group-hover:animate-spin">
           <History />
         </div>
-        <h2 className="mr-20 text-center font-bold">Latest Research</h2>
+        <h2 className="text-center font-bold">Latest Research</h2>
       </div>
       <div className={`mt-4 overflow-y-auto p-4 ${className}`}>
         <ul className="flex flex-wrap gap-5 space-y-1">
