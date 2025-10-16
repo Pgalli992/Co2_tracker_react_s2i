@@ -15,9 +15,7 @@ function Emission24h({ data }) {
               responseData.emissions
                 .map((e) => e.value)
                 .reduce((a, b) => a + b, 0) / responseData.emissions.length
-            )
-              .toFixed(2)
-              .toLocaleString("it-IT")}
+            ).toLocaleString("it-IT")}
           </p>
           <span className="text-sm text-gray-500">
             {responseData.emissions[0]?.unit}

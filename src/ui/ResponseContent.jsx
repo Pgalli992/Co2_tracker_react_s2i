@@ -1,4 +1,5 @@
 import {
+  CalendarOff,
   CloudSnow,
   Earth,
   FlagOff,
@@ -18,7 +19,7 @@ function ResponseContent({ data }) {
   const responseData = data.data ? data.data : data;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl pb-10 shadow-md">
+    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl pt-6 pb-10 shadow-md">
       <div className="flex flex-1 flex-col items-center justify-center gap-2">
         <p className="text-center font-bold">{responseData.country.name}</p>
         {data.flag[0]?.flags.svg ? (
@@ -69,6 +70,11 @@ function ResponseContent({ data }) {
       ) : request.period === "year" ? (
         <AnnualEmissions data={data} />
       ) : null}
+      {responseData.emissions?.outdated && (
+        <div className="absolute top-0">
+          <CalendarOff className="" color="red" />
+        </div>
+      )}
       {dataSource === "cache" ? (
         <HardDrive className="absolute top-0 right-5 size-10" color="#0fda1c" />
       ) : dataSource === "partial-cache" ? (
