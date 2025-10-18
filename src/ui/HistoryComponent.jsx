@@ -19,6 +19,11 @@ function HistoryComponent({ className }) {
         <h2 className="text-center font-bold">Latest Research</h2>
       </div>
       <div className={`mt-4 overflow-y-auto p-4 ${className}`}>
+        {searchHistory.length === 0 && (
+          <p className="translate-x-3 text-center text-sm text-gray-500">
+            No search history available.
+          </p>
+        )}
         <ul className="flex flex-wrap gap-5 space-y-1">
           {searchHistory.map((item) => (
             <li

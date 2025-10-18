@@ -19,7 +19,7 @@ function AnnualEmissions({ data }) {
   ];
 
   const calculateAverageEmissions = () => {
-    const validMonths = Object.values(months).filter(
+    const validMonths = Object?.values(months)?.filter(
       (month) => month !== false
     );
 

@@ -19,13 +19,13 @@ function ResponseContent({ data }) {
   const responseData = data.data ? data.data : data;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl pt-6 pb-10 shadow-md">
-      <div className="flex flex-1 flex-col items-center justify-center gap-2">
-        <p className="text-center font-bold">{responseData.country.name}</p>
+    <div className="flex w-full flex-col items-center justify-center gap-4 rounded-xl bg-white pt-6 pb-15 shadow-md">
+      <div className="flex flex-1 flex-col items-center justify-center gap-2 p-4">
+        <p className="text-center font-bold">{responseData.country?.name}</p>
         {data.flag[0]?.flags.svg ? (
           <img
             src={data.flag[0]?.flags.svg}
-            alt={`Flag of ${responseData.country.name}`}
+            alt={`Flag of ${responseData.country?.name}`}
             className="h-25 w-40 border-[.5px] object-cover"
           />
         ) : (
@@ -65,22 +65,26 @@ function ResponseContent({ data }) {
           </div>
         </div>
       </div>
-      {request.period === "24h" ? (
+      {request.period === "24h" && responseData.emissions ? (
         <Emissions24h data={data} />
       ) : request.period === "year" ? (
         <AnnualEmissions data={data} />
       ) : null}
       {responseData.emissions?.outdated && (
-        <div className="absolute top-0">
+        <div className="absolute bottom-4">
           <CalendarOff className="" color="red" />
         </div>
       )}
       {dataSource === "cache" ? (
-        <HardDrive className="absolute top-0 right-5 size-10" color="#0fda1c" />
+        <HardDrive
+          className="absolute top-4 right-7"
+          size={40}
+          color="#0fda1c"
+        />
       ) : dataSource === "partial-cache" ? (
-        <Network className="absolute top-0 right-5 size-10" color="#f6ce2f" />
+        <Network className="absolute top-4 right-7" size={40} color="#f6ce2f" />
       ) : dataSource === "api" ? (
-        <Earth className="absolute top-0 right-5 size-10" color="#f1730b" />
+        <Earth className="absolute top-4 right-7" size={40} color="#f1730b" />
       ) : null}
     </div>
   );

@@ -18,8 +18,8 @@ function AppLayout() {
   }, [globalMessage, globalError, clearMessage]);
 
   return (
-    <div className="bg-light mx-auto my-8 flex h-screen w-[90%] gap-4 overflow-hidden px-4 caret-transparent">
-      <Sidebar className="h-[90%] flex-2" />
+    <div className="bg-light mx-auto my-8 flex h-screen w-[95%] gap-4 overflow-hidden px-4 caret-transparent">
+      <Sidebar className="h-[90%] flex-2 bg-white p-4" />
       <MainContent className="h-[90%] flex-3 overflow-y-auto" />
       {(globalMessage || globalError) && (
         <MessageContainer

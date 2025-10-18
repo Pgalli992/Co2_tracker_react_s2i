@@ -58,14 +58,22 @@ const useApiRequest = () => {
 
       if (dataResult.status === "rejected") {
         const errorMsg =
-          dataResult.reason.message || "Errore nella chiamata fetchDataFromApi";
+          dataResult.reason.message || "Error in fetchDataFromApi call";
         setError({ message: errorMsg });
         showError({ message: errorMsg });
       }
 
+      // Controllo se la risposta, anche se fulfilled, contiene errori.
+      if (dataResult.status === "fulfilled" && dataResult.value.error) {
+        setError({ message: dataResult.value.message });
+        showError({ message: dataResult.value.message });
+        setLoading(false);
+        return;
+      }
+
       if (flagResult.status === "rejected") {
         const errorMsg =
-          flagResult.reason.message || "Errore nella chiamata fetchFlagFromApi";
+          flagResult.reason.message || "Error in fetchFlagFromApi call";
         setError({ message: errorMsg });
         showError({ message: errorMsg });
       }
@@ -79,7 +87,7 @@ const useApiRequest = () => {
         successfullResults.data.length === 0 &&
         successfullResults.flag.length === 0
       ) {
-        throw new Error("Errore nel recupero dei dati da entrambe le chiamate");
+        throw new Error("Error retrieving data from both API calls");
       }
 
       console.log("Dati recuperati dall'API:", successfullResults);
@@ -91,7 +99,7 @@ const useApiRequest = () => {
       return successfullResults;
     } catch (err) {
       const errorObj = {
-        message: err.message || "Errore sconosciuto",
+        message: err.message || "Error retrieving data",
         stack: err.stack || null,
       };
       setError(errorObj);

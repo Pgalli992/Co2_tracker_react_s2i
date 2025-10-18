@@ -1,8 +1,9 @@
-import { MessageCircleMore, MessageCircleX } from "lucide-react";
+import { InfoIcon, MessageCircleMore, MessageCircleX } from "lucide-react";
 
 function MessageContainer({
   message,
   messageError,
+  messageInfo,
   onClose,
   bg = "bg-amber-100/90",
 }) {
@@ -21,11 +22,13 @@ function MessageContainer({
         className={`${bg} relative flex h-1/4 w-1/4 flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-xl`}
       >
         {message ? (
-          <MessageCircleMore size={48} color="blue" />
-        ) : (
+          <MessageCircleMore size={48} />
+        ) : messageError ? (
           <MessageCircleX size={48} color="red" />
-        )}
-        <p className="text-xl">{message || messageError}</p>
+        ) : messageInfo ? (
+          <InfoIcon size={48} />
+        ) : null}
+        <p className="text-xl">{message || messageError || messageInfo}</p>
         {onClose && (
           <button
             onClick={onClose}
