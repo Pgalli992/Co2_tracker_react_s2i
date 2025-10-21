@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CalendarOff,
   CloudSnow,
@@ -9,73 +8,61 @@ import {
   InfoIcon,
   Network,
 } from "lucide-react";
-import MessageContainer from "./MessageContainter";
 
-function Legend({ className }) {
-  const [infoOpen, setInfoOpen] = useState(false);
-
+function Legend({ className, setInfoOpen, infoOpen }) {
   return (
     <div
-      className={`relative flex w-full items-center rounded-lg px-2 py-4 ${className}`}
+      className={`relative flex w-full translate-y-1/4 flex-col items-center gap-3 rounded-lg px-2 py-4 pb-15 sm:translate-0 sm:flex-row sm:gap-0 sm:pb-5 ${className}`}
     >
-      <div className="absolute bottom-1/2 translate-y-1/2 -rotate-90 transform">
+      <div className="transform sm:-rotate-90 lg:absolute lg:bottom-1/2 lg:translate-y-2/3">
         <span className="text-md font-extralight">Legend</span>
       </div>
-      <div className="ml-20 flex w-full justify-center gap-10">
-        <div className="flex flex-1 items-center justify-center">
-          <button onClick={() => setInfoOpen(true)}>
+      <div className="mx-auto flex w-full flex-col justify-center gap-5 sm:flex-row sm:items-start lg:ml-10 2xl:ml-20 2xl:gap-10">
+        <div className="flex flex-1 items-center justify-center sm:translate-y-5/6">
+          <button onClick={() => setInfoOpen(!infoOpen)}>
             <Info
               className="cursor-pointer duration-200 hover:scale-125"
               size={40}
             />
           </button>
         </div>
-        <div className="flex flex-2 flex-col items-start gap-2">
+        <div className="text-md flex flex-2 flex-col items-start gap-2 lg:text-sm">
           <div className="flex items-center">
             <CloudSnow size={20} color="green" />
-            <span className="pl-2 text-sm"> = Below average emissions</span>
+            <span className="pl-2"> = Below average emissions</span>
           </div>
           <div className="flex items-center">
             <CloudSnow size={20} color="red" />
-            <span className="pl-2 text-sm"> = Above average emissions</span>
+            <span className="pl-2"> = Above average emissions</span>
           </div>
           <div className="flex items-center">
             <CloudSnow size={20} />
-            <span className="pl-2 text-sm"> = CO2 Emissions</span>
+            <span className="pl-2"> = CO2 Emissions</span>
           </div>
           <div className="flex items-center">
             <CalendarOff size={20} color="red" />
-            <span className="pl-2 text-sm"> = Outdated data</span>
+            <span className="pl-2"> = Outdated data</span>
           </div>
         </div>
-        <div className="flex flex-2 flex-col items-start gap-2">
+        <div className="text-md flex flex-2 flex-col items-start gap-2 sm:translate-0 lg:text-sm @min-xs:translate-x-1/2 @min-xs:-translate-y-[120%]">
           <div className="flex items-center">
             <HardDrive size={20} color="#0fda1c" />
-            <span className="pl-2 text-sm"> = Cached data</span>
+            <span className="pl-2"> = Cached data</span>
           </div>
           <div className="flex items-center">
             <Network size={20} color="#f6ce2f" />
-            <span className="pl-2 text-sm">
-              {" "}
-              = Mixed source (cache + network)
-            </span>
+            <span className="pl-2"> = Mixed source (cache + network)</span>
           </div>
           <div className="flex items-center">
             <Earth size={20} color="#f1730b" />
-            <span className="pl-2 text-sm"> = Network data</span>
+            <span className="pl-2"> = Network data</span>
           </div>
           <div className="flex items-center">
             <FlagOff size={20} />
-            <span className="pl-2 text-sm"> = No flag available</span>
+            <span className="pl-2"> = No flag available</span>
           </div>
         </div>
       </div>
-      {infoOpen && (
-        <MessageContainer
-          onClose={() => setInfoOpen(false)}
-          messageInfo={"lorem20"}
-        />
-      )}
     </div>
   );
 }

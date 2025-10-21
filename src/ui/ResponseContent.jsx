@@ -26,7 +26,7 @@ function ResponseContent({ data }) {
           <img
             src={data.flag[0]?.flags.svg}
             alt={`Flag of ${responseData.country?.name}`}
-            className="h-25 w-40 border-[.5px] object-cover"
+            className="h-15 w-25 border-[.5px] object-cover lg:h-25 lg:w-40"
           />
         ) : (
           <div className="flex flex-col items-center justify-center gap-2">

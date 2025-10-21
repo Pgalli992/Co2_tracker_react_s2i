@@ -14,11 +14,11 @@ function Emission24h({ data }) {
       ) : (
         <div className="flex w-full flex-col gap-6">
           <div className="flex w-full justify-center gap-4">
-            <div className="flex flex-col items-center justify-center gap-1 rounded-xl px-10 py-5 shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300">
+            <div className="flex flex-col items-center justify-center gap-1 rounded-xl shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300 sm:px-5 sm:py-2 md:px-10 md:py-5">
               <span className="text-sm text-gray-500">Average</span>
               <CloudSnow />
               <p className="text-2xl font-bold">
-                {(
+                {Math.round(
                   responseData.emissions
                     .map((e) => e.value)
                     .reduce((a, b) => a + b, 0) / responseData.emissions.length
@@ -28,7 +28,7 @@ function Emission24h({ data }) {
                 {responseData.emissions[0]?.unit}
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center gap-1 rounded-xl px-10 py-5 shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300">
+            <div className="flex flex-col items-center justify-center gap-1 rounded-xl px-2 py-1 shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300 sm:px-5 sm:py-2 md:px-10 md:py-5">
               <span className="text-sm text-gray-500">Max</span>
               <CloudSnow color="red" />
               <p className="text-2xl font-bold">
@@ -40,7 +40,7 @@ function Emission24h({ data }) {
                 {responseData.emissions[0]?.unit}
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center gap-1 rounded-xl px-10 py-5 shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300">
+            <div className="flex flex-col items-center justify-center gap-1 rounded-xl shadow-sm transition duration-300 hover:scale-110 hover:shadow-md hover:outline hover:outline-offset-1 hover:outline-blue-300 sm:px-5 sm:py-2 md:px-10 md:py-5">
               <span className="text-sm text-gray-500">Min</span>
               <CloudSnow color="green" />
               <p className="text-2xl font-bold">

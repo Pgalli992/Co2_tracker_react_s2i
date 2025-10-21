@@ -11,20 +11,24 @@ function HistoryComponent({ className }) {
   };
 
   return (
-    <>
+    <div
+      className={`flex h-full flex-col justify-center overflow-hidden lg:min-h-[200px] ${className}`}
+    >
       <div className="group flex items-center justify-center gap-2">
         <div className="group-hover:scale-115 group-hover:animate-spin">
           <History />
         </div>
         <h2 className="text-center font-bold">Latest Research</h2>
       </div>
-      <div className={`mt-4 overflow-y-auto p-4 ${className}`}>
+      <div className="p-4">
         {searchHistory.length === 0 && (
           <p className="translate-x-3 text-center text-sm text-gray-500">
             No search history available.
           </p>
         )}
-        <ul className="flex flex-wrap gap-5 space-y-1">
+      </div>
+      <div className="w-full flex-1 overflow-x-auto sm:overflow-y-auto">
+        <ul className="flex flex-none gap-3 sm:flex-wrap">
           {searchHistory.map((item) => (
             <li
               key={item.request.country + item.request.period}
@@ -47,7 +51,7 @@ function HistoryComponent({ className }) {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -69,12 +69,16 @@ function DataSettingComponent({ className }) {
         <Settings2 />
         <h1 className="text-center text-xl font-bold">Explore Emission Data</h1>
       </div>
-      <div className="mt-5 flex w-full translate-y-5 transform justify-around">
-        <Map />
-        <CalendarSearchIcon />
+      <div className="mt-5 w-full translate-y-5 transform justify-around md:flex md:flex-row">
+        <div className="flex items-center justify-center">
+          <Map />
+        </div>
+        <div className="flex translate-y-75 items-center justify-center md:translate-0">
+          <CalendarSearchIcon />
+        </div>
       </div>
       <div
-        className={`relative flex w-full justify-between gap-3 ${className}`}
+        className={`sm:max-md:text-md xl:text-md relative flex w-full flex-col justify-between gap-3 text-sm md:flex-row lg:max-xl:text-xs ${className}`}
       >
         <div className="mt-8 flex flex-1 flex-col items-center justify-start gap-8">
           <div className="flex flex-col gap-2">
@@ -111,18 +115,16 @@ function DataSettingComponent({ className }) {
               />
             )}
             {validationErrors.country && (
-              <span className="mt-2 text-center text-sm font-medium text-red-500">
+              <span className="mt-2 text-center text-xs font-medium text-red-500 lg:text-sm">
                 ⚠️ Please select a country before fetching data
               </span>
             )}
           </div>
         </div>
-        <Separator className="-translate-y-5" />
-        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
-          <div className="h-12 text-center">
-            <span className="text-sm">
-              Select the survey <br /> period:
-            </span>
+        <Separator className="-translate-y-5 md:visible" />
+        <div className="mt-4 flex flex-1 flex-col items-center justify-start gap-2 md:mt-12 md:gap-8">
+          <div className="h-12 w-full text-center lg:w-30">
+            <span className="text-sm">Select the survey period:</span>
           </div>
           <PeriodSelector
             selectedPeriod={selectedPeriod}
@@ -134,7 +136,7 @@ function DataSettingComponent({ className }) {
       </div>
       <div className="flex items-center justify-center">
         <BtnPrimary
-          className="group mb-8 flex items-center justify-center gap-2"
+          className="group mt-5 mb-8 flex items-center justify-center gap-2 md:mt-0"
           onClick={handleSubmit}
           disabled={loading}
         >

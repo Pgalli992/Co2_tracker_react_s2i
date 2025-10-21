@@ -19,7 +19,7 @@ function MessageContainer({
       onClick={handleClick}
     >
       <div
-        className={`${bg} relative flex h-1/4 w-1/4 flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-xl`}
+        className={`${bg} relative flex min-h-1/4 min-w-1/4 flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-xl`}
       >
         {message ? (
           <MessageCircleMore size={48} />
