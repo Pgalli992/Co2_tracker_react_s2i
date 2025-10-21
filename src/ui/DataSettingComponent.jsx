@@ -67,7 +67,7 @@ function DataSettingComponent({ className }) {
     <>
       <div className="flex items-center justify-center gap-2">
         <Settings2 />
-        <h1 className="text-center text-xl font-bold">Explore Emission Data</h1>
+        <h1 className="text-center text-xl font-bold">Explore EmissionData</h1>
       </div>
       <div className="mt-5 w-full translate-y-5 transform justify-around md:flex md:flex-row">
         <div className="flex items-center justify-center">

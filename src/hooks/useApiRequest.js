@@ -24,6 +24,8 @@ const useApiRequest = () => {
 
       if (cachedData) {
         const { entry, isTotallyEqual, isOnlyCountryEqual } = cachedData;
+        console.log("Cached data found:", cachedData);
+        console.log("Flag length:", entry.response.flag.length);
 
         if (isTotallyEqual) {
           addToSearchHistory(request, entry.response);
@@ -32,9 +34,11 @@ const useApiRequest = () => {
           setDataSource("cache");
           return entry.data;
         }
+        console.log(entry.response);
 
         if (isOnlyCountryEqual && entry.response.flag.length > 0) {
-          // Così se nella prima chimara non ho recuperato la bandiera, non uso la cache ma rieseguo la chiamata
+          // Così se nella prima chiamata non ho recuperato la bandiera, non uso la cache ma rieseguo la chiamata
+          console.log("Partial cache hit, fetching missing data...");
           const flagFromHistory = entry.response.flag;
           const dataResult = await fetchDataFromApi(request);
 
@@ -82,12 +86,25 @@ const useApiRequest = () => {
         data: dataResult.status === "fulfilled" ? dataResult.value : [],
         flag: flagResult.status === "fulfilled" ? flagResult.value : [],
       };
+      const errors = [];
 
       if (
         successfullResults.data.length === 0 &&
         successfullResults.flag.length === 0
       ) {
-        throw new Error("Error retrieving data from both API calls");
+        errors.push("Error retrieving data from both API calls");
+      }
+      if (successfullResults.data.length === 0) {
+        errors.push("Error retrieving data from fetchDataFromApi");
+      }
+
+      if (successfullResults.flag.length === 0) {
+        errors.push("Error retrieving flag from fetchFlagFromApi");
+      }
+
+      if (errors.length > 0) {
+        console.warn("API Errors:", errors);
+        showError({ message: errors.join("; ") }); // Mostra gli errori nel gestore globale
       }
 
       console.log("Dati recuperati dall'API:", successfullResults);
@@ -96,6 +113,7 @@ const useApiRequest = () => {
       setData(successfullResults);
       setDataSource("api");
       setLoading(false);
+      console.log("Partial cache hit, using cached flag:", successfullResults);
       return successfullResults;
     } catch (err) {
       const errorObj = {

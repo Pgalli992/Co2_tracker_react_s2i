@@ -19,6 +19,9 @@ function AnnualEmissions({ data }) {
   ];
 
   const calculateAverageEmissions = () => {
+    if (!months || Object.keys(months).length === 0) {
+      return { average: 0, unit: "g CO2eq/kWh" };
+    }
     const validMonths = Object?.values(months)?.filter(
       (month) => month !== false
     );
@@ -35,7 +38,21 @@ function AnnualEmissions({ data }) {
     };
   };
 
-  const { average } = calculateAverageEmissions();
+  const { average } = months ? calculateAverageEmissions() : { average: 0 };
+
+  if (!months || Object.keys(months).length === 0) {
+    return (
+      <div className="flex w-full flex-col items-center gap-4 py-4">
+        <h2 className="text-md text-center font-bold md:text-xl">
+          Annual aggregate emissions for{" "}
+          {country ? country : "the selected country"}
+        </h2>
+        <p className="text-sm text-gray-500">
+          No data available for the selected year.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col items-center gap-4 py-4">

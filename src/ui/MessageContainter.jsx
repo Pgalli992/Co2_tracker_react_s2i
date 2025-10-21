@@ -28,7 +28,9 @@ function MessageContainer({
         ) : messageInfo ? (
           <InfoIcon size={48} />
         ) : null}
-        <p className="text-xl">{message || messageError || messageInfo}</p>
+        <p className="text-sm sm:text-xl">
+          {message || messageError || messageInfo}
+        </p>
         {onClose && (
           <button
             onClick={onClose}

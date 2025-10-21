@@ -31,7 +31,9 @@ function HistoryComponent({ className }) {
         <ul className="flex flex-none gap-3 sm:flex-wrap">
           {searchHistory.map((item) => (
             <li
-              key={item.request.country + item.request.period}
+              key={
+                item.request.country + item.request.period + item.request?.year
+              }
               onClick={() => handleHistoryClick(item)}
               className="w-30 cursor-pointer rounded-lg px-2 py-2 text-center text-xs shadow-sm transition-all duration-200 hover:scale-105 hover:bg-amber-100/80 active:scale-95"
             >
