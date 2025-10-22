@@ -15,12 +15,12 @@ Grazie alla funzione cached, l’app memorizza i dati delle interazioni preceden
 
 Questa ottimizzazione contribuisce indirettamente a ridurre l’impronta ecologica digitale collegata all’elaborazione dati, promuovendo un uso più sostenibile della tecnologia.
 
-Provalo qui: [Co2 - Tracker]([https://pg-veganrecipes.netlify.app/](https://pg-co2tracker.pg-dev.space/))
+Provalo qui: [Co2 - Tracker](https://pg-co2tracker.pg-dev.space/)
 
 ## Servizi esterni:
 Questo progetto utilizza:
-- l'API di [Nowtricity]([https://www.nowtricity.com/emissions-api/](https://www.nowtricity.com/emissions-api/)), un servizio che aggrega dati da fonti ufficiali di produzione energetica.
-- l'API di [REST Countries]([https://restcountries.com/](https://restcountries.com/)), da cui vengono recuperati: bandiera, popolazione e area del paese.
+- l'API di [Nowtricity](https://www.nowtricity.com/emissions-api/), un servizio che aggrega dati da fonti ufficiali di produzione energetica.
+- l'API di [REST Countries](https://restcountries.com/), da cui vengono recuperati: bandiera, popolazione e area del paese.
 
 ## 🚀 Come iniziare
 
