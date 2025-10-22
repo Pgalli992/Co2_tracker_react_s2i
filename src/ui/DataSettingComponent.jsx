@@ -80,11 +80,7 @@ function DataSettingComponent({ className }) {
       <div
         className={`sm:max-md:text-md xl:text-md relative flex w-full flex-col justify-between gap-3 text-sm md:flex-row lg:max-xl:text-xs ${className}`}
       >
-<<<<<<< HEAD
-        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
-=======
         <div className="mt-8 flex flex-1 flex-col items-center justify-start gap-8">
->>>>>>> period-year
           <div className="flex flex-col gap-2">
             <InputRadio
               value="country"
@@ -125,19 +121,11 @@ function DataSettingComponent({ className }) {
             )}
           </div>
         </div>
-<<<<<<< HEAD
-        <Separator className="-translate-y-5" />
-        <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
-          <div className="h-12 text-center">
-            <span className="text-sm">
-              Seleziona il periodo di <br /> rilevazione:
-            </span>
-=======
+
         <Separator className="-translate-y-5 md:visible" />
         <div className="mt-4 flex flex-1 flex-col items-center justify-start gap-2 md:mt-12 md:gap-8">
           <div className="h-12 w-full text-center lg:w-30">
             <span className="text-sm">Select the survey period:</span>
->>>>>>> period-year
           </div>
           <PeriodSelector
             selectedPeriod={selectedPeriod}
