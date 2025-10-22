@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/Pgalli992/Co2_tracker_react_s2i/blob/main/src/assets/molecola.png" align="center" width="30%">
+    <img src="https://github.com/Pgalli992/Co2_tracker_react_s2i/blob/main/src/assets/molecola.png" align="center">
 </p>
 <p align="center"><h1 align="center">CO2_TRACKER_REACT_S2I.GIT</h1></p>
 <br>
