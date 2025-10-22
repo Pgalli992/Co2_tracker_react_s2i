@@ -24,7 +24,7 @@ function AppLayout() {
     <div className="bg-light mx-auto flex h-screen w-[95%] flex-col gap-4 overflow-y-auto px-4 py-8 caret-transparent lg:flex-row lg:overflow-hidden">
       <Sidebar className="flex-2 bg-white p-4" />
       <MainContent
-        className="h-[90%] flex-3 lg:overflow-y-auto"
+        className="h-[90%] flex-3 lg:h-auto lg:overflow-y-auto"
         infoOpen={infoOpen}
         setInfoOpen={setInfoOpen}
       />

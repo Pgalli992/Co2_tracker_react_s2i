@@ -56,7 +56,7 @@ function AnnualEmissions({ data }) {
 
   return (
     <div className="flex w-full flex-col items-center gap-4 py-4">
-      <h2 className="text-md text-center font-bold md:text-xl">
+      <h2 className="md:text-md text-center text-sm font-bold md:text-xl">
         Annual aggregate emissions for {country.name}
       </h2>
       <p className="text-sm text-gray-500">
