@@ -4,6 +4,22 @@
 <p align="center"><h1 align="center">CO2_TRACKER_REACT_S2I</h1></p>
 <br>
 
+
+## Descrizione:
+
+Co2-tracker ti permette di monitorare facilmente le emissioni di CO₂, offrendo una panoramica chiara e aggiornata dell’impatto ambientale legato alle attività energetiche dei diversi paesi.
+
+Visualizza dati storici e attuali, rappresentati in grammi di CO₂ equivalente per kWh, con aggiornamenti in tempo reale dalla API di Nowtricity.
+
+Grazie alla funzione cached, l’app memorizza i dati delle interazioni precedenti per ridurre al minimo le chiamate al servizio esterno, migliorando l’efficienza e riducendo il consumo di risorse computazionali e di rete.
+
+Questa ottimizzazione contribuisce indirettamente a ridurre l’impronta ecologica digitale collegata all’elaborazione dati, promuovendo un uso più sostenibile della tecnologia.
+
+Provalo qui: [Co2 - Tracker]([https://pg-veganrecipes.netlify.app/](https://pg-co2tracker.pg-dev.space/))
+
+## Servizi esterni:
+Questo progetto utilizza l'API di Nowtricity, un servizio che aggrega dati da fonti ufficiali di produzione energetica.
+
 ## 🚀 Come iniziare
 
 ### ☑️ Prerequisiti
@@ -30,7 +46,7 @@ Installa Co2_tracker_react_s2i.git utilizzando uno dei seguenti metodi:
 
 3. Installa le dipendenze del progetto:
 
-**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+**Usando [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 ```sh
  npm install
 ```
@@ -38,9 +54,28 @@ Installa Co2_tracker_react_s2i.git utilizzando uno dei seguenti metodi:
 ### 🤖 Utilizzo
 
 Esegui Co2_tracker_react_s2i.git usando il seguente comando:  
-**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+**Usando [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 ```sh
  npm start
+```
+### Comandi utili
+
+Utilizzare Tailwind per compilare il file output.css
+
+```sh
+npm run dev
+```
+
+Creare la cartella dist
+
+```sh
+npm run build:dev
+```
+
+Far girare il progetto dalla cartella dist in locale e network (su qualsisi dispositivo connesso alla tua rete; comodo per eplorare viewport diverse).
+
+```sh
+npm run dev
 ```
 
 
