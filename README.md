@@ -60,16 +60,17 @@ Esegui Co2_tracker_react_s2i.git usando il seguente comando:
 ```
 ### Comandi utili
 
-Utilizzare Tailwind per compilare il file output.css
 
-```sh
-npm run dev
-```
-
-Creare la cartella dist
+Creare la cartella dist in dev mode
 
 ```sh
 npm run build:dev
+```
+
+Creare la cartella dist in production mode
+
+```sh
+npm run build
 ```
 
 Far girare il progetto dalla cartella dist in locale e network (su qualsisi dispositivo connesso alla tua rete; comodo per eplorare viewport diverse).
