@@ -23,3 +23,24 @@ Installa Co2_tracker_react_s2i.git utilizzando uno dei seguenti metodi:
 ```sh
  git clone https://github.com/Pgalli992/Co2_tracker_react_s2i.git
 ```
+2. Spostati nella directory del progetto:
+```sh
+ cd Co2_tracker_react_s2i.git
+```
+
+3. Installa le dipendenze del progetto:
+
+**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+```sh
+ npm install
+```
+
+### 🤖 Utilizzo
+
+Esegui Co2_tracker_react_s2i.git usando il seguente comando:  
+**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+```sh
+ npm start
+```
+
+
