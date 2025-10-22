@@ -12,7 +12,7 @@ import {
 function Legend({ className, setInfoOpen, infoOpen }) {
   return (
     <div
-      className={`relative flex w-full flex-col items-center gap-3 rounded-lg px-2 py-4 pb-15 sm:flex-row sm:gap-0 sm:pb-5 lg:translate-y-2/13 sm:@lg:translate-0 ${className}`}
+      className={`relative flex w-full flex-col items-center gap-3 rounded-lg px-2 py-4 pb-35 sm:flex-row sm:gap-0 sm:pb-5 lg:translate-y-2/13 sm:@lg:translate-0 ${className}`}
     >
       <div className="transform sm:-rotate-90 lg:absolute lg:bottom-1/2 lg:translate-y-2/3">
         <span className="text-md font-extralight">Legend</span>
