@@ -18,7 +18,9 @@ Questa ottimizzazione contribuisce indirettamente a ridurre l’impronta ecologi
 Provalo qui: [Co2 - Tracker]([https://pg-veganrecipes.netlify.app/](https://pg-co2tracker.pg-dev.space/))
 
 ## Servizi esterni:
-Questo progetto utilizza l'API di Nowtricity, un servizio che aggrega dati da fonti ufficiali di produzione energetica.
+Questo progetto utilizza:
+- l'API di [Nowtricity]([https://www.nowtricity.com/emissions-api/](https://www.nowtricity.com/emissions-api/)), un servizio che aggrega dati da fonti ufficiali di produzione energetica.
+- l'API di [REST Countries]([https://restcountries.com/](https://restcountries.com/)), da cui vengono recuperati: bandiera, popolazione e area del paese.
 
 ## 🚀 Come iniziare
 
