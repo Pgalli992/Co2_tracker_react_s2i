@@ -21,7 +21,7 @@ function InputSelect({
       >
         <option value="">Choose an option</option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} className="text-sm">
             {option.label}
           </option>
         ))}

@@ -1,12 +1,17 @@
 import DataResponseComponent from "./DataResponseComponent";
-import DataSettingComponent from "./DataSettingComponent";
+import Legend from "./Legend";
 
-function MainContent({ className }) {
+function MainContent({ className, infoOpen, setInfoOpen }) {
   return (
     <div
-      className={`flex flex-col gap-20 rounded-lg p-4 px-2 py-12 shadow-sm${className}`}
+      className={`flex min-h-max flex-col justify-between gap-10 rounded-lg sm:pb-10 lg:min-h-0 ${className}`}
     >
-      <DataResponseComponent className="w-1/3" />
+      <DataResponseComponent className="min-h-max flex-3" />
+      <Legend
+        className="flex-1"
+        setInfoOpen={setInfoOpen}
+        infoOpen={infoOpen}
+      />
     </div>
   );
 }

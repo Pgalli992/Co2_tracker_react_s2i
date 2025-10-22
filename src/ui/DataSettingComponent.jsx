@@ -1,77 +1,95 @@
-import { useState, useEffect } from "react";
-import CountrySelector from "./atoms/CountrySelector";
-import PeriodSelector from "./atoms/PeriodSelector";
+import { useState } from "react";
+import CountrySelector from "./CountrySelector";
+import PeriodSelector from "./PeriodSelector";
 import useApiRequest from "../hooks/useApiRequest";
-import MessageContainer from "./atoms/MessageContainter";
-import { RingLoader } from "react-spinners";
 import { useAppContext } from "../contexts/AppContext";
-import InputText from "./atoms/InputText";
 import InputRadio from "./atoms/InputRadio";
 import Separator from "./atoms/Separator";
 import {
-  CalendarSearch,
   CalendarSearchIcon,
   Map,
+  SendHorizontal,
   Settings2,
 } from "lucide-react";
+import CoordinatesInputs from "./CoordinatesInputs";
+import BtnPrimary from "./atoms/BtnPrimary";
 
 function DataSettingComponent({ className }) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState("current");
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const { setRequest } = useAppContext();
-  const { loading, error, handleRequest } = useApiRequest();
+  const { setRequest, loading } = useAppContext();
+  const { handleRequest } = useApiRequest();
 
   const [countryModeSelection, setCountryModeSelection] = useState("country");
 
-  useEffect(() => {
-    if (!selectedCountry || !selectedPeriod) return;
+  const [validationErrors, setValidationErrors] = useState({
+    country: false,
+  });
 
-    const req = {
+  const fetchData = async () => {
+    setValidationErrors({ country: false });
+
+    if (!selectedCountry) {
+      setValidationErrors({ country: true });
+      return;
+    }
+
+    const request = {
       country: selectedCountry,
       period: selectedPeriod,
       year: selectedPeriod === "year" ? selectedYear : undefined,
     };
+    console.log("Request to be sent:", request);
 
-    setRequest(req);
+    setRequest(request);
 
-    const fetchData = async () => {
-      const request = {
-        country: selectedCountry,
-        period: selectedPeriod,
-        year: selectedPeriod === "year" ? selectedYear : undefined,
-      };
+    try {
+      await handleRequest(request);
+    } catch (err) {
+      console.error("Errore durante la ricerca:", err);
+    }
+  };
 
-      try {
-        await handleRequest(request);
-      } catch (err) {
-        console.error("Errore durante la ricerca:", err);
-      }
-    };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetchData();
-  }, [selectedCountry, selectedPeriod]); // handleRequest causa loop infinito di chiamate
+  };
+
+  // Funzione per gestire l'onChange della modalità di selezione paese in modo da resettare l'errore.
+  const handleCountryModeChange = (mode) => {
+    setCountryModeSelection(mode);
+    setSelectedCountry("");
+    setValidationErrors({ country: false });
+  };
 
   return (
     <>
       <div className="flex items-center justify-center gap-2">
         <Settings2 />
-        <h1 className="text-center text-xl font-bold">Explore Emission Data</h1>
+        <h1 className="text-center text-xl font-bold">Explore EmissionData</h1>
       </div>
-      <div className="mt-5 flex w-full translate-y-5 transform justify-around">
-        <Map />
-        <CalendarSearchIcon />
+      <div className="mt-5 w-full translate-y-5 transform justify-around md:flex md:flex-row">
+        <div className="flex items-center justify-center">
+          <Map />
+        </div>
+        <div className="flex translate-y-75 items-center justify-center md:translate-0">
+          <CalendarSearchIcon />
+        </div>
       </div>
       <div
-        className={`relative flex w-full justify-between gap-3 ${className}`}
+        className={`sm:max-md:text-md xl:text-md relative flex w-full flex-col justify-between gap-3 text-sm md:flex-row lg:max-xl:text-xs ${className}`}
       >
+<<<<<<< HEAD
         <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
+=======
+        <div className="mt-8 flex flex-1 flex-col items-center justify-start gap-8">
+>>>>>>> period-year
           <div className="flex flex-col gap-2">
             <InputRadio
               value="country"
               onChange={() => {
-                setCountryModeSelection("country");
-                setSelectedCountry("");
+                handleCountryModeChange("country");
               }}
               checked={countryModeSelection === "country"}
               className={"text-sm"}
@@ -80,17 +98,14 @@ function DataSettingComponent({ className }) {
             </InputRadio>
             <InputRadio
               value="coordinates"
-              onChange={() => {
-                setCountryModeSelection("coordinates");
-                setSelectedCountry("");
-              }}
+              onChange={() => handleCountryModeChange("coordinates")}
               checked={countryModeSelection === "coordinates"}
               className={"text-sm"}
             >
               Use Coordinates
             </InputRadio>
           </div>
-          <div className="flex h-36 w-[70%] items-start justify-center">
+          <div className="flex h-36 w-[70%] flex-col items-center justify-start">
             {countryModeSelection === "country" ? (
               <CountrySelector
                 selectedCountry={selectedCountry}
@@ -98,27 +113,31 @@ function DataSettingComponent({ className }) {
                 countryModeSelection={countryModeSelection}
               />
             ) : (
-              <div
-                className={`flex w-full flex-col gap-4 ${countryModeSelection !== "coordinates" ? "cursor-not-allowed opacity-50" : ""}`}
-              >
-                <InputText
-                  label={"Latitude"}
-                  disabled={countryModeSelection !== "coordinates"}
-                />
-                <InputText
-                  label={"Longitude"}
-                  disabled={countryModeSelection !== "coordinates"}
-                />
-              </div>
+              <CoordinatesInputs
+                countryModeSelection={countryModeSelection}
+                setSelectedCountry={setSelectedCountry}
+              />
+            )}
+            {validationErrors.country && (
+              <span className="mt-2 text-center text-xs font-medium text-red-500 lg:text-sm">
+                ⚠️ Please select a country before fetching data
+              </span>
             )}
           </div>
         </div>
+<<<<<<< HEAD
         <Separator className="-translate-y-5" />
         <div className="mt-12 flex flex-1 flex-col items-center justify-start gap-8">
           <div className="h-12 text-center">
             <span className="text-sm">
               Seleziona il periodo di <br /> rilevazione:
             </span>
+=======
+        <Separator className="-translate-y-5 md:visible" />
+        <div className="mt-4 flex flex-1 flex-col items-center justify-start gap-2 md:mt-12 md:gap-8">
+          <div className="h-12 w-full text-center lg:w-30">
+            <span className="text-sm">Select the survey period:</span>
+>>>>>>> period-year
           </div>
           <PeriodSelector
             selectedPeriod={selectedPeriod}
@@ -126,13 +145,19 @@ function DataSettingComponent({ className }) {
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
           />
-          {loading && (
-            <div className="bg-aero-100/20 filter-blur-lg fixed top-0 left-0 z-99 flex h-screen w-screen items-center justify-center">
-              <RingLoader loading={loading} size={150} />
-            </div>
-          )}
-          {error && <MessageContainer message={`Errore: ${error.message}`} />}
         </div>
+      </div>
+      <div className="flex items-center justify-center">
+        <BtnPrimary
+          className="group mt-5 mb-8 flex items-center justify-center gap-2 md:mt-0"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          <div className="group-hover:animate-bounce">
+            <SendHorizontal />
+          </div>
+          <span>Fetch Data</span>
+        </BtnPrimary>
       </div>
     </>
   );

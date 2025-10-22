@@ -1,5 +1,5 @@
-import InputRadioGroup from "./InputRadioGroup";
-import InputYear from "./InputYear";
+import InputRadioGroup from "./atoms/InputRadioGroup";
+import InputYear from "./atoms/InputYear";
 
 function PeriodSelector({
   selectedPeriod,
@@ -8,7 +8,7 @@ function PeriodSelector({
   setSelectedYear,
 }) {
   return (
-    <div className="rounded-lg border-[.5px]">
+    <div className="w-[70%] rounded-lg border-[.5px]">
       <div className="ml-2 w-min -translate-y-3 transform bg-white px-1">
         Period:
       </div>
