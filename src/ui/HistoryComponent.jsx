@@ -27,7 +27,7 @@ function HistoryComponent({ className }) {
           </p>
         )}
       </div>
-      <div className="w-full flex-1 overflow-x-auto sm:overflow-y-auto">
+      <div className="w-full flex-1 overflow-x-auto pb-2 sm:overflow-y-auto">
         <ul className="flex flex-none gap-3 sm:flex-wrap">
           {searchHistory.map((item) => (
             <li

@@ -43,7 +43,7 @@ function AnnualEmissions({ data }) {
   if (!months || Object.keys(months).length === 0) {
     return (
       <div className="flex w-full flex-col items-center gap-4 py-4">
-        <h2 className="text-md text-center font-bold md:text-xl">
+        <h2 className="text-md text-center font-bold max-sm:max-w-3/4 md:text-xl">
           Annual aggregate emissions for{" "}
           {country ? country : "the selected country"}
         </h2>
